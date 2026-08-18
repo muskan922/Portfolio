@@ -1,11 +1,11 @@
-# salehOS — salehos.com
+# muskanOS — muskan-os.dev
 
-Saleh Al-Mashni's portfolio, built as a working operating system in the browser.
+Muskan Kumari's portfolio, built as a working operating system in the browser.
 Desktop visitors get a macOS-style desktop; phones get an iOS-style home screen.
 Everything — windows, dock, terminal, file system, games — is built from scratch
 in React. No emojis, no UI libraries, no backend.
 
-**Live:** [salehos.com](https://salehos.com)
+**Live:** [muskan-os.dev](https://muskan-os.dev)
 
 ---
 

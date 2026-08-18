@@ -26,7 +26,7 @@ const STEPS: Step[] = [
     Icon: AppWindow,
     color: "#5aa7f2",
     title: `This is ${site.name}’s portfolio`,
-    body: "Not a real Mac — a senior mobile & full-stack engineer’s website that behaves like one. Everything you see is built from scratch in React.",
+    body: "Not a real Mac — a software engineer & full-stack developer's personal operating system. Everything you see is built from scratch in React.",
   },
   {
     Icon: FolderOpen,

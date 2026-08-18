@@ -4,11 +4,11 @@ import { site } from "../../data/content";
 
 const PHRASES = [
   site.name,
-  "Senior Mobile Engineer",
-  "React Native, down to the metal",
-  "Full-Stack Web & Mobile",
-  "10+ apps shipped to the stores",
-  "Welcome to the portfolio",
+  "Software Engineer",
+  "Full-Stack Developer",
+  "DESIGN + DEVELOPMENT + AI",
+  "MUSKAN.XYZ",
+  "PERSONAL SYSTEM",
 ];
 
 const CYCLE_MS = 4600;

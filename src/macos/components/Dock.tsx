@@ -80,7 +80,7 @@ function DockItem({ item, mouseX, onContextMenu }: DockItemProps) {
         <a
           href={item.href}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label={item.label}
         >
           {inner}

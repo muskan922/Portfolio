@@ -23,7 +23,6 @@ import {
   site,
   skillGroups,
 } from "../../data/content";
-import { XIcon } from "../components/AppIcons";
 import { LazyMedia } from "../components/LazyMedia";
 
 function Reveal({
@@ -66,7 +65,6 @@ export function SafariApp() {
   const orbMid = useTransform(scrollY, [0, 900], [0, 90]);
   const heroY = useTransform(scrollY, [0, 500], [0, 130]);
   const heroOpacity = useTransform(scrollY, [0, 420], [1, 0.25]);
-  const avatarScale = useTransform(scrollY, [0, 400], [1, 0.82]);
 
   const featured = projects.filter((project) => project.featured);
   const rest = projects.filter((project) => !project.featured);
@@ -79,7 +77,7 @@ export function SafariApp() {
         <ChevronRight size={17} className="text-white/25" />
         <div className="mx-auto flex w-full max-w-md items-center justify-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white/70">
           <Lock size={11} />
-          saleh-almashni.dev
+          muskan-os.dev
         </div>
         <RotateCw size={14} className="text-white/40" />
         <Share size={15} className="text-white/40" />
@@ -106,78 +104,97 @@ export function SafariApp() {
 
         <div className="relative mx-auto max-w-2xl px-6 pb-16">
           {/* Hero */}
-          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="pt-16 text-center">
-            <motion.div
-              style={{ scale: avatarScale }}
-              className="mx-auto h-24 w-24 overflow-hidden rounded-full border-2 border-[#e8aa42]/60 shadow-[0_12px_40px_rgba(232,170,66,0.35)]"
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            >
-              <img
-                src={site.photo}
-                alt={site.name}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover"
-              />
-            </motion.div>
-            <h1 className="mt-6 font-display text-4xl font-semibold tracking-tight text-white">
-              {site.name}
-            </h1>
-            <p className="mt-2 text-sm font-medium text-[#e8aa42]">{site.role}</p>
-            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-white/65">
-              {site.tagline}
-            </p>
+          <motion.div
+            style={{ y: heroY, opacity: heroOpacity }}
+            className="pt-16 grid gap-6 grid-cols-1 sm:grid-cols-12 items-center text-center sm:text-left"
+          >
+            {/* LEFT COLUMN: About content */}
+            <div className="sm:col-span-7 order-2 sm:order-1 flex flex-col justify-center items-center sm:items-start">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#e8aa42]">ABOUT ME</span>
+              <h1 className="mt-1 font-display text-2xl font-semibold tracking-tight text-white leading-tight">
+                Muskan Kumari
+              </h1>
+              <p className="mt-0.5 text-xs font-semibold tracking-wider text-emerald-400 font-mono">
+                Software Engineer / Full-Stack Developer
+              </p>
+              
+              <p className="mt-2.5 text-[13px] leading-relaxed text-white/60">
+                AI-focused Software Engineer with hands-on experience building LLM-powered applications, AI agents, and backend systems using Python, JavaScript, and Gemini APIs. Strong foundation in software engineering, frontend styling, and databases.
+              </p>
 
-            <div className="mt-7 flex flex-wrap justify-center gap-2.5">
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-[#e8aa42] px-4 py-2 text-sm font-medium text-[#101013] hover:bg-[#f0b755]"
-              >
-                <Mail size={15} />
-                Get in Touch
-              </a>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm text-white/85 hover:border-white/40"
-              >
-                <Github size={15} />
-                GitHub
-              </a>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm text-white/85 hover:border-white/40"
-              >
-                <Linkedin size={15} />
-                LinkedIn
-              </a>
-              <a
-                href={site.x}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm text-white/85 hover:border-white/40"
-              >
-                <span className="h-4 w-4 [&>*]:h-full [&>*]:w-full">
-                  <XIcon />
+              {/* Technical summary grid */}
+              <div className="mt-3.5 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-white/10 pt-3 text-[11px] leading-normal text-left w-full">
+                <div>
+                  <h4 className="font-mono text-[9px] font-semibold text-white/40 uppercase tracking-wider">Frontend</h4>
+                  <p className="mt-0.5 text-white/70 font-sans">React • JavaScript • HTML • CSS • Tailwind</p>
+                </div>
+                <div>
+                  <h4 className="font-mono text-[9px] font-semibold text-white/40 uppercase tracking-wider">Backend</h4>
+                  <p className="mt-0.5 text-white/70 font-sans">Node.js • Express.js • REST APIs</p>
+                </div>
+                <div>
+                  <h4 className="font-mono text-[9px] font-semibold text-white/40 uppercase tracking-wider">Database</h4>
+                  <p className="mt-0.5 text-white/70 font-sans">MongoDB • SQL</p>
+                </div>
+                <div>
+                  <h4 className="font-mono text-[9px] font-semibold text-white/40 uppercase tracking-wider">AI / Design</h4>
+                  <p className="mt-0.5 text-white/70 font-sans">LLMs • Generative AI • Figma</p>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="mt-4 flex flex-wrap justify-center sm:justify-start gap-2 w-full">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#e8aa42] px-3 py-1.5 text-xs font-medium text-[#101013] hover:bg-[#f0b755] transition-colors"
+                >
+                  <Mail size={12} />
+                  Get in Touch
+                </a>
+                <a
+                  href={site.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/85 hover:border-white/40 transition-colors"
+                >
+                  <Github size={12} />
+                  GitHub
+                </a>
+                <a
+                  href={site.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/85 hover:border-white/40 transition-colors"
+                >
+                  <Linkedin size={12} />
+                  LinkedIn
+                </a>
+              </div>
+
+              {/* Location & Contact Info */}
+              <div className="mt-3.5 flex flex-wrap items-center justify-center sm:justify-start gap-3.5 text-[11px] text-white/40 border-t border-white/5 pt-3.5 w-full">
+                <span className="flex items-center gap-1">
+                  <MapPin size={11} className="text-[#5aa7f2]" />
+                  {site.location}
                 </span>
-                @saleh_almashne
-              </a>
+                <span className="flex items-center gap-1">
+                  <Phone size={11} className="text-[#34d058]" />
+                  {site.phone}
+                </span>
+              </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-white/45">
-              <span className="flex items-center gap-1.5">
-                <MapPin size={12} />
-                {site.location}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Phone size={12} />
-                {site.phone}
-              </span>
+            {/* RIGHT COLUMN: Laptop image */}
+            <div className="sm:col-span-5 order-1 sm:order-2 flex justify-center">
+              <div className="relative w-full aspect-[4/3] max-w-[240px] sm:max-w-none overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-xl">
+                <img
+                  src="/images/muskan/muskan-safari-laptop.webp"
+                  alt="Muskan Kumari Workspace"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
             </div>
           </motion.div>
 

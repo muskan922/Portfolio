@@ -28,16 +28,17 @@ import { GamesApp } from "../apps/GamesApp";
 import { PreviewApp } from "../apps/PreviewApp";
 import { SafariApp } from "../apps/SafariApp";
 import { SettingsApp } from "../apps/SettingsApp";
+import { WelcomeApp } from "../apps/WelcomeApp";
+import { MiaApp } from "../apps/MiaApp";
+import { ProjectTerminalApp } from "../apps/ProjectTerminalApp";
 import { TerminalApp } from "../apps/TerminalApp";
 import { TextEditApp } from "../apps/TextEditApp";
-import { WelcomeApp } from "../apps/WelcomeApp";
 import {
   ArcadeIcon,
   ContactsIcon,
   FinderIcon,
   GithubIcon,
   LinkedinIcon,
-  XIcon,
   MailIcon,
   PhoneIcon,
   PreviewIcon,
@@ -48,7 +49,6 @@ import {
 } from "../components/AppIcons";
 import { BootScreen } from "../components/BootScreen";
 import { LeaveGuard, leaveSite, useBackGuard } from "../components/LeaveGuard";
-import { fs } from "../lib/fs";
 import { useSettings, useWallpaperShuffle } from "../lib/settings";
 import { WALLPAPERS, wallpaperStyle } from "../lib/wallpapers";
 import { sfx } from "../lib/sfx";
@@ -65,7 +65,9 @@ type IosAppId =
   | "settings"
   | "about"
   | "welcome"
-  | "textedit";
+  | "textedit"
+  | "project-terminal"
+  | "mia";
 
 interface AppSpec {
   id: IosAppId;
@@ -83,7 +85,7 @@ interface LinkSpec {
 const TEL = `tel:${site.phone.replace(/\s+/g, "")}`;
 
 const GRID_APPS: AppSpec[] = [
-  { id: "finder", label: "Files", icon: <FinderIcon /> },
+  { id: "finder", label: "My Portfolio", icon: <FinderIcon /> },
   { id: "terminal", label: "Terminal", icon: <TerminalIcon /> },
   { id: "games", label: "Arcade", icon: <ArcadeIcon /> },
   { id: "preview", label: "CV", icon: <PreviewIcon /> },
@@ -93,6 +95,11 @@ const GRID_APPS: AppSpec[] = [
     id: "welcome",
     label: "Welcome",
     icon: <TextFileGlyph className="p-[12%]" />,
+  },
+  {
+    id: "mia",
+    label: "MIA",
+    icon: <TextFileGlyph className="p-[12%] text-emerald-400" />,
   },
 ];
 
@@ -104,10 +111,10 @@ const GRID_LINKS: LinkSpec[] = [
     href: `mailto:${site.email}`,
   },
   { id: "github", label: "GitHub", icon: <GithubIcon />, href: site.github },
-  { id: "x", label: "X", icon: <XIcon />, href: site.x },
+  { id: "linkedin", label: "LinkedIn", icon: <LinkedinIcon />, href: site.linkedin },
   {
-    id: "linkedin",
-    label: "LinkedIn",
+    id: "linkedin2",
+    label: "LinkedIn 2",
     icon: <LinkedinIcon />,
     href: site.linkedin,
   },
@@ -127,15 +134,17 @@ const DOCK_APPS: DockEntry[] = [
 
 const APP_TITLES: Record<IosAppId, string> = {
   safari: "Safari",
-  finder: "Files",
+  finder: "My Portfolio",
   terminal: "Terminal",
   games: "Arcade",
   preview: "CV",
   contact: "Contact",
   settings: "Settings",
-  about: "About",
+  about: "About Muskan",
   welcome: "Welcome",
   textedit: "TextEdit",
+  "project-terminal": "Project Terminal",
+  mia: "MIA — MUSKAN.OS ASSISTANT",
 };
 
 interface SheetAction {
@@ -452,7 +461,7 @@ export default function IOS() {
   });
 
   useEffect(() => {
-    document.title = "Saleh Al-Mashni — Senior Mobile & Full-Stack Engineer";
+    document.title = "Muskan Kumari — Software Engineer / Full-Stack Developer";
     let welcomed = false;
     try {
       welcomed = Boolean(localStorage.getItem(WELCOME_KEY));
@@ -502,7 +511,7 @@ export default function IOS() {
       actions.push({
         label: "Download CV",
         onSelect: () =>
-          window.open("/Saleh_Al-Mashni_Resume_2026.pdf", "_blank"),
+          window.open("/resume/Muskan_Kumari_Resume.pdf", "_blank"),
       });
     }
     if (spec.id === "games") {
@@ -523,9 +532,16 @@ export default function IOS() {
               setFileId(file);
               setOpen("textedit");
             }}
-            onTrashNode={(node) => {
-              sfx.trash();
-              fs.remove(node);
+            onOpenApp={(app, payload) => {
+              if (app === "finder") {
+                if (payload?.initialSection) setFinderSection(payload.initialSection);
+                setOpen("finder");
+              } else if (app === "project-terminal") {
+                setFileId(payload?.fileId || null);
+                setOpen("project-terminal");
+              } else {
+                setOpen(app);
+              }
             }}
           />
         );
@@ -557,6 +573,27 @@ export default function IOS() {
         return <WelcomeApp onClose={goHome} />;
       case "textedit":
         return fileId ? <TextEditApp fileId={fileId} /> : null;
+      case "project-terminal":
+        return <ProjectTerminalApp projectTitle={fileId || "CivicFix"} />;
+      case "mia":
+        return (
+          <MiaApp
+            actions={{
+              openApp: (app, payload) => {
+                if (app === "finder") {
+                  if (payload?.initialSection) setFinderSection(payload.initialSection);
+                  setOpen("finder");
+                } else if (app === "project-terminal") {
+                  setFileId(payload?.fileId || null);
+                  setOpen("project-terminal");
+                } else {
+                  setOpen(app);
+                }
+              },
+              close: goHome,
+            }}
+          />
+        );
     }
   };
 
@@ -572,7 +609,7 @@ export default function IOS() {
         {
           id: "safari-s",
           label: "Safari",
-          sub: "About Saleh",
+          sub: "About Muskan",
           run: () => launch("safari"),
         },
         {
@@ -589,7 +626,7 @@ export default function IOS() {
         },
         {
           id: "call",
-          label: "Call Saleh",
+          label: "Call Muskan",
           sub: site.phone,
           run: () => window.open(TEL),
         },
@@ -671,7 +708,7 @@ export default function IOS() {
         >
           <span className="block h-10 w-10 overflow-hidden rounded-full border border-[#e8aa42]/60">
             <img
-              src={site.photo}
+              src="/images/muskan/muskan-mobile.webp"
               alt={site.name}
               loading="lazy"
               decoding="async"

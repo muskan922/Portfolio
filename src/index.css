@@ -80,3 +80,19 @@ textarea:focus,
     transform: scale(1);
   }
 }
+
+/* Custom Cursor: hide default browser cursor only when active and on mouse-capable devices */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active *,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active select,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active [class*="cursor-"] {
+    cursor: none !important;
+  }
+}
+

@@ -24,8 +24,11 @@ import { PreviewApp } from "./apps/PreviewApp";
 import { SafariApp } from "./apps/SafariApp";
 import { SettingsApp } from "./apps/SettingsApp";
 import { TerminalApp } from "./apps/TerminalApp";
-import { TextEditApp } from "./apps/TextEditApp";
 import { WelcomeApp } from "./apps/WelcomeApp";
+import { MiaApp } from "./apps/MiaApp";
+import { ProjectTerminalApp } from "./apps/ProjectTerminalApp";
+import { MiaWidget } from "./components/MiaWidget";
+import { TextEditApp } from "./apps/TextEditApp";
 import {
   ArcadeIcon,
   ContactsIcon,
@@ -35,14 +38,12 @@ import {
   LaunchpadIcon,
   LinkedinIcon,
   MailIcon,
-  PdfGlyph,
   PhoneIcon,
   PreviewIcon,
   SafariIcon,
   SettingsIcon,
   TerminalIcon,
   TextFileGlyph,
-  XIcon,
 } from "./components/AppIcons";
 import { BootScreen } from "./components/BootScreen";
 import { LeaveGuard, leaveSite, useBackGuard } from "./components/LeaveGuard";
@@ -56,11 +57,12 @@ import { Spotlight, type SpotlightItem } from "./components/Spotlight";
 import { Widgets } from "./components/Widgets";
 import { Window, type WindowFrame } from "./components/Window";
 import { fs, useFs } from "./lib/fs";
+import StarCursor from "./components/StarCursor";
 import { useSettings, useWallpaperShuffle } from "./lib/settings";
 import { WALLPAPERS, wallpaperStyle } from "./lib/wallpapers";
 import { sfx } from "./lib/sfx";
 
-const CV_URL = "/Saleh_Al-Mashni_Resume_2026.pdf";
+const CV_URL = "/resume/Muskan_Kumari_Resume.pdf";
 const WELCOME_KEY = "macos-welcomed";
 
 type AppId =
@@ -73,7 +75,9 @@ type AppId =
   | "contact"
   | "textedit"
   | "welcome"
-  | "settings";
+  | "settings"
+  | "project-terminal"
+  | "mia";
 
 /** Finder and TextEdit can open many windows; everything else focuses its existing one. */
 const SINGLETON: Record<AppId, boolean> = {
@@ -87,19 +91,23 @@ const SINGLETON: Record<AppId, boolean> = {
   textedit: false,
   welcome: true,
   settings: true,
+  "project-terminal": false,
+  mia: true,
 };
 
 const APP_TITLES: Record<AppId, string> = {
-  finder: "Finder",
+  finder: "My Portfolio",
   safari: "Safari",
   terminal: "Terminal",
   preview: "Preview — CV",
-  about: "About This Mac",
+  about: "About Muskan",
   games: "Arcade",
   contact: "Contact",
   textedit: "TextEdit",
   welcome: "Welcome",
   settings: "System Settings",
+  "project-terminal": "Project Terminal",
+  mia: "MIA — MUSKAN.OS ASSISTANT",
 };
 
 const FRAMES: Record<AppId, WindowFrame> = {
@@ -107,12 +115,14 @@ const FRAMES: Record<AppId, WindowFrame> = {
   finder: { x: 80, y: 90, w: 760, h: 480 },
   terminal: { x: 320, y: 150, w: 620, h: 420 },
   preview: { x: 220, y: 30, w: 780, h: 640 },
-  about: { x: 380, y: 100, w: 460, h: 460 },
+  about: { x: 320, y: 80, w: 760, h: 540 },
   games: { x: 260, y: 60, w: 700, h: 580 },
   contact: { x: 300, y: 110, w: 640, h: 440 },
   textedit: { x: 340, y: 80, w: 620, h: 480 },
   welcome: { x: 400, y: 60, w: 500, h: 620 },
   settings: { x: 280, y: 60, w: 780, h: 580 },
+  "project-terminal": { x: 340, y: 130, w: 640, h: 440 },
+  mia: { x: 300, y: 120, w: 540, h: 500 },
 };
 
 interface WinPayload {
@@ -203,7 +213,7 @@ export default function MacOS() {
   useEffect(() => {
     if (booted.current) return;
     booted.current = true;
-    document.title = "Saleh Al-Mashni — Senior Mobile & Full-Stack Engineer";
+    document.title = "Muskan Kumari — Software Engineer / Full-Stack Developer";
     openApp("finder", undefined, true);
     openApp("safari", undefined, true);
     // First visit: open the welcome tour so nobody is confused.
@@ -536,9 +546,9 @@ export default function MacOS() {
           icon: <ExternalLink size={13} />,
           onSelect: () => window.open(site.linkedin, "_blank"),
         },
-        { label: "Email Saleh", onSelect: () => window.open(`mailto:${site.email}`) },
+        { label: "Email Muskan", onSelect: () => window.open(`mailto:${site.email}`) },
         "separator",
-        { label: "About This Mac", onSelect: () => openApp("about") },
+        { label: "About Muskan", onSelect: () => openApp("about") },
       ],
     },
   ];
@@ -676,7 +686,7 @@ export default function MacOS() {
   const isRunning = (app: AppId) => wins.some((win) => win.app === app);
 
   const dockItems: DockItemSpec[] = [
-    { id: "finder", label: "Finder", icon: <FinderIcon />, running: isRunning("finder"), onClick: () => summonApp("finder") },
+    { id: "finder", label: "My Portfolio", icon: <FinderIcon />, running: isRunning("finder"), onClick: () => summonApp("finder") },
     {
       id: "launchpad",
       label: "Launchpad",
@@ -695,17 +705,16 @@ export default function MacOS() {
     { id: "mail", label: "Mail", icon: <MailIcon />, href: `mailto:${site.email}` },
     {
       id: "phone",
-      label: "Call Saleh",
+      label: "Call Muskan",
       icon: <PhoneIcon />,
       href: `tel:${site.phone.replace(/\s+/g, "")}`,
     },
     { id: "github", label: "GitHub", icon: <GithubIcon />, href: site.github },
-    { id: "x", label: "X", icon: <XIcon />, href: site.x },
     { id: "linkedin", label: "LinkedIn", icon: <LinkedinIcon />, href: site.linkedin },
   ];
 
   const launchpadApps: LaunchpadApp[] = [
-    { id: "finder", label: "Finder", icon: <FinderIcon />, onOpen: () => openApp("finder") },
+    { id: "finder", label: "My Portfolio", icon: <FinderIcon />, onOpen: () => openApp("finder") },
     { id: "safari", label: "Safari", icon: <SafariIcon />, onOpen: () => openApp("safari") },
     { id: "terminal", label: "Terminal", icon: <TerminalIcon />, onOpen: () => openApp("terminal") },
     { id: "games", label: "Arcade", icon: <ArcadeIcon />, onOpen: () => openApp("games") },
@@ -720,32 +729,32 @@ export default function MacOS() {
     },
     { id: "mail", label: "Mail", icon: <MailIcon />, href: `mailto:${site.email}` },
     { id: "github", label: "GitHub", icon: <GithubIcon />, href: site.github },
-    { id: "x", label: "X", icon: <XIcon />, href: site.x },
     { id: "linkedin", label: "LinkedIn", icon: <LinkedinIcon />, href: site.linkedin },
   ];
 
   const spotlightItems: SpotlightItem[] = [
-    { id: "sp-finder", title: "Finder", subtitle: "New window", icon: <FinderIcon />, action: () => openApp("finder") },
-    { id: "sp-safari", title: "Safari", subtitle: "About Saleh", icon: <SafariIcon />, action: () => openApp("safari") },
+    { id: "sp-finder", title: "My Portfolio", subtitle: "New window", icon: <FinderIcon />, action: () => openApp("finder") },
+    { id: "sp-safari", title: "Safari", subtitle: "About Muskan", icon: <SafariIcon />, action: () => openApp("safari") },
     { id: "sp-contact", title: "Contact", subtitle: "Send a message", icon: <ContactsIcon />, action: () => openApp("contact") },
     { id: "sp-arcade", title: "Arcade", subtitle: "DOOM, Snake, Pong, 2048…", icon: <ArcadeIcon />, action: () => openApp("games") },
     { id: "sp-terminal", title: "Terminal", subtitle: "type help", icon: <TerminalIcon />, action: () => openApp("terminal") },
     { id: "sp-cv", title: "CV", subtitle: "Open the resume in Preview", icon: <PreviewIcon />, action: () => openApp("preview") },
     { id: "sp-welcome", title: "Welcome Tour", subtitle: "What is this site?", icon: <TextFileGlyph />, action: () => openApp("welcome") },
     { id: "sp-settings", title: "System Settings", subtitle: "Wallpaper, appearance, fonts", icon: <SettingsIcon />, action: () => openApp("settings") },
-    { id: "sp-about", title: "About This Mac", subtitle: "Specs and a bio", icon: <TextFileGlyph />, action: () => openApp("about") },
+    { id: "sp-about", title: "About Muskan", subtitle: "Specs and a bio", icon: <TextFileGlyph />, action: () => openApp("about") },
     { id: "sp-projects", title: "Projects", subtitle: "Finder folder", icon: <FolderGlyph />, action: () => openApp("finder", { initialSection: "projects" }) },
     { id: "sp-experience", title: "Experience", subtitle: "Finder folder", icon: <FolderGlyph />, action: () => openApp("finder", { initialSection: "experience" }) },
     { id: "sp-skills", title: "Skills", subtitle: "Finder folder", icon: <FolderGlyph />, action: () => openApp("finder", { initialSection: "skills" }) },
     { id: "sp-education", title: "Education", subtitle: "Finder folder", icon: <FolderGlyph />, action: () => openApp("finder", { initialSection: "education" }) },
     { id: "sp-newfile", title: "New Text File", subtitle: "TextEdit", icon: <TextFileGlyph />, action: newTextFile },
     { id: "sp-email", title: "Copy Email", subtitle: site.email, icon: <Mail className="text-white/70" />, action: () => copyToClipboard(site.email) },
-    { id: "sp-call", title: "Call Saleh", subtitle: site.phone, icon: <PhoneIcon />, action: () => window.open(`tel:${site.phone.replace(/\s+/g, "")}`) },
+    { id: "sp-call", title: "Call Muskan", subtitle: site.phone, icon: <PhoneIcon />, action: () => window.open(`tel:${site.phone.replace(/\s+/g, "")}`) },
     { id: "sp-download", title: "Download CV", subtitle: "PDF", icon: <Download className="text-white/70" />, action: () => window.open(CV_URL, "_blank") },
     { id: "sp-github", title: "GitHub", subtitle: site.github.replace("https://", ""), icon: <GithubIcon />, action: () => window.open(site.github, "_blank") },
     { id: "sp-linkedin", title: "LinkedIn", subtitle: "Profile", icon: <LinkedinIcon />, action: () => window.open(site.linkedin, "_blank") },
-    { id: "sp-x", title: "X", subtitle: "@saleh_almashne", icon: <XIcon />, action: () => window.open(site.x, "_blank") },
+    { id: "sp-x", title: "LinkedIn", subtitle: "Profile", icon: <LinkedinIcon />, action: () => window.open(site.linkedin, "_blank") },
     { id: "sp-games", title: "Play a Game", subtitle: "Open the Arcade", icon: <Gamepad2 className="text-white/70" />, action: () => openApp("games") },
+    { id: "sp-mia", title: "MIA Assistant", subtitle: "Ask me anything about Muskan", icon: <TextFileGlyph />, action: () => openApp("mia") },
   ];
 
   const renderApp = (win: WinInstance) => {
@@ -756,7 +765,7 @@ export default function MacOS() {
             initialSection={win.payload?.initialSection}
             fsFolderId={win.payload?.fsFolderId}
             onOpenFile={openTextFile}
-            onTrashNode={trashNode}
+            onOpenApp={(app, payload) => openApp(app, payload)}
           />
         );
       case "safari":
@@ -784,39 +793,26 @@ export default function MacOS() {
         return <WelcomeApp onClose={() => closeWin(win.id)} />;
       case "settings":
         return <SettingsApp presets={WALLPAPERS} onOpenWelcome={() => openApp("welcome")} />;
+      case "project-terminal":
+        return <ProjectTerminalApp projectTitle={win.payload?.fileId || "CivicFix"} />;
+      case "mia":
+        return (
+          <MiaApp
+            actions={{
+              openApp: (app, payload) => openApp(app, payload),
+              close: () => closeWin(win.id),
+            }}
+          />
+        );
     }
   };
 
   const builtinIcons = [
     {
-      id: "projects",
-      label: "Projects",
+      id: "my-portfolio",
+      label: "MY PORTFOLIO",
       icon: <FolderGlyph className="h-12 w-14" />,
-      open: () => openApp("finder", { initialSection: "projects" as FinderSection }),
-    },
-    {
-      id: "experience",
-      label: "Experience",
-      icon: <FolderGlyph className="h-12 w-14" />,
-      open: () => openApp("finder", { initialSection: "experience" as FinderSection }),
-    },
-    {
-      id: "skills",
-      label: "Skills",
-      icon: <FolderGlyph className="h-12 w-14" />,
-      open: () => openApp("finder", { initialSection: "skills" as FinderSection }),
-    },
-    {
-      id: "cv",
-      label: "CV.pdf",
-      icon: <PdfGlyph className="h-12 w-10" />,
-      open: () => openApp("preview"),
-    },
-    {
-      id: "about",
-      label: "About.txt",
-      icon: <TextFileGlyph className="h-12 w-10" />,
-      open: () => openApp("about"),
+      open: () => openApp("finder", { initialSection: "my-portfolio" as any }),
     },
     {
       id: "welcome",
@@ -966,6 +962,8 @@ export default function MacOS() {
         />
       )}
 
+      <MiaWidget onOpen={() => openApp("mia")} />
+
       <Dock
         items={dockItems}
         onItemContextMenu={dockItemContextMenu}
@@ -1017,6 +1015,9 @@ export default function MacOS() {
           <span className="text-xs text-white/25">Click anywhere to power on</span>
         </button>
       )}
+
+      {/* Cinematic Custom Star Cursor */}
+      <StarCursor />
     </div>
   );
 }

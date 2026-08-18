@@ -14,14 +14,14 @@ interface Line {
 }
 
 const NEOFETCH = String.raw`
-            .:'        saleh@macbook
+            .:'        muskan@macbook
         __ :'__        ------------------
-     .'~  ~\`·__.      OS: salehOS 26.0 "Amman"
+     .'~  ~\`·__.      OS: muskanOS 26.0 "Ranchi"
     /        ,~\`\     Host: Portfolio (Web Edition)
-   |          ;:|     Kernel: react 19.2 / motion 12
-   |          ;:|     Shell: caveman-zsh
-    \         ;:/     Uptime: shipping since 2022
-     '·.,_,.·'        Resolution: every merge conflict
+    |          ;:|     Kernel: react 19.2 / motion 12
+    |          ;:|     Shell: developer-zsh
+     \         ;:/     Uptime: shipping since 2024
+      '·.,_,.·'        Resolution: every merge conflict
 `;
 
 const COFFEE = String.raw`
@@ -267,11 +267,11 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
   const print = (content: ReactNode) =>
     setLines((current) => [...current, { id: ++lineId, content }]);
 
-  // Boot sequence: introduce Saleh, then hand over the prompt.
+  // Boot sequence: introduce Muskan, then hand over the prompt.
   useEffect(() => {
     const intro: [number, ReactNode][] = [
       [80, <span className="text-white/45">Last login: {new Date().toDateString()} on ttys001</span>],
-      [420, <span className="text-white/55">starting saleh-shell v26…</span>],
+      [420, <span className="text-white/55">starting muskan-shell v26…</span>],
       [
         800,
         <span>
@@ -306,7 +306,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
     const cmd = raw.trim();
     print(
       <span>
-        <span className="text-[#28c840]">saleh@macbook</span>
+        <span className="text-[#28c840]">muskan@macbook</span>
         <span className="text-white/50"> {cwd.path} % </span>
         <span className="text-white">{cmd}</span>
       </span>,
@@ -373,7 +373,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
       }
 
       case "pwd":
-        print(<span className="text-white/80">{cwd.path.replace("~", "/Users/saleh")}</span>);
+        print(<span className="text-white/80">{cwd.path.replace("~", "/Users/muskan")}</span>);
         break;
 
       case "cd": {
@@ -562,7 +562,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
                 `SYNOPSIS`,
                 `    ${page.usage}`,
                 ``,
-                `salehOS · type "help" for the full command list.`,
+                `muskanOS · type "help" for the full command list.`,
               ].join("\n")}
             </span>,
           );
@@ -597,8 +597,8 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
         print(
           <span className="text-white/80">
             {full
-              ? "salehOS 26.0 Amman Darwin Kernel react-19.2 x86_64"
-              : "salehOS"}
+              ? "muskanOS 26.0 Ranchi Darwin Kernel react-19.2 x86_64"
+              : "muskanOS"}
           </span>,
         );
         break;
@@ -607,7 +607,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
       case "uptime":
         print(
           <span className="text-white/80">
-            up since 2022, 0 crashes, load average: 0.42, 0.21, 0.07 — shipping steadily.
+            up since 2024, 0 crashes, load average: 0.42, 0.21, 0.07 — shipping steadily.
           </span>,
         );
         break;
@@ -620,13 +620,13 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
         print(
           <span className="whitespace-pre-wrap text-white/80">
             {[
-              "USER=saleh",
-              "HOME=/Users/saleh",
-              "SHELL=/bin/caveman-zsh",
-              "PWD=" + cwd.path.replace("~", "/Users/saleh"),
+              "USER=muskan",
+              "HOME=/Users/muskan",
+              "SHELL=/bin/developer-zsh",
+              "PWD=" + cwd.path.replace("~", "/Users/muskan"),
               "TERM=xterm-256color",
               "EDITOR=vim",
-              "LANG=en_JO.UTF-8",
+              "LANG=en_IN.UTF-8",
             ].join("\n")}
           </span>,
         );
@@ -648,7 +648,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
       case "sudo":
         print(
           <span className="text-[#ff6b64]">
-            saleh is not in the sudoers file. This incident will be reported to saleh.
+            muskan is not in the sudoers file. This incident will be reported to muskan.
           </span>,
         );
         break;
@@ -669,7 +669,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
       case "hack":
         print(<span className="text-[#28c840]">accessing mainframe… bypassing firewall… enhancing… enhancing…</span>);
         setTimeout(
-          () => print(<span className="text-[#28c840]">access granted. you found the secret: saleh replies to emails fast.</span>),
+          () => print(<span className="text-[#28c840]">access granted. you found the secret: muskan replies to emails fast.</span>),
           900,
         );
         break;
@@ -744,7 +744,7 @@ export function TerminalApp({ actions }: { actions: TerminalActions }) {
         ))}
         {ready ? (
           <div className="flex items-center">
-            <span className="text-[#28c840]">saleh@macbook</span>
+            <span className="text-[#28c840]">muskan@macbook</span>
             <span className="text-white/50">&nbsp;{cwd.path} %&nbsp;</span>
             <input
               ref={inputRef}

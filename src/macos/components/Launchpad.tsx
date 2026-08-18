@@ -55,7 +55,7 @@ export function Launchpad({ apps, onClose }: LaunchpadProps) {
               key={app.id}
               href={app.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="group flex w-24 flex-col items-center gap-2"
               onClick={(event) => event.stopPropagation()}
             >

@@ -1,7 +1,6 @@
 import { Check, Github, Linkedin, Loader2, Mail, Phone, Send } from "lucide-react";
 import { useState } from "react";
 import { site } from "../../data/content";
-import { XIcon } from "../components/AppIcons";
 import { sfx } from "../lib/sfx";
 
 type SendState = "idle" | "sending" | "sent" | "error";
@@ -50,7 +49,7 @@ export function ContactApp() {
       <div className="sm:w-56 sm:shrink-0">
         <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-[#e8aa42]/60">
           <img
-            src={site.photo}
+            src="/images/muskan/muskan-about.webp"
             alt={site.name}
             loading="lazy"
             decoding="async"
@@ -69,17 +68,11 @@ export function ContactApp() {
             <Phone size={14} className="text-[#34d058]" />
             {site.phone}
           </a>
-          <a href={site.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
             <Github size={14} className="text-white/60" />
             {site.github.replace("https://", "")}
           </a>
-          <a href={site.x} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
-            <span className="h-3.5 w-3.5 [&>*]:h-full [&>*]:w-full">
-              <XIcon />
-            </span>
-            @saleh_almashne
-          </a>
-          <a href={site.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
             <Linkedin size={14} className="text-[#5aa7f2]" />
             LinkedIn
           </a>
@@ -88,7 +81,7 @@ export function ContactApp() {
 
       <form onSubmit={send} className="flex min-w-0 flex-1 flex-col gap-3">
         <p className="text-[13px] leading-relaxed text-white/60">
-          Drop a message — it lands straight in Saleh’s inbox.
+          Drop a message — it lands straight in Muskan’s inbox.
         </p>
         <div className="grid gap-3 sm:grid-cols-2">
           <input
@@ -125,7 +118,7 @@ export function ContactApp() {
         {state === "sent" ? (
           <p className="flex items-center gap-2 text-sm font-medium text-[#34d058]">
             <Check size={15} />
-            Sent — Saleh will get back to you soon.
+            Sent — Muskan will get back to you soon.
           </p>
         ) : (
           <div className="flex flex-wrap items-center gap-3">

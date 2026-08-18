@@ -8,7 +8,7 @@ await page.waitForTimeout(3200);
 await page.screenshot({ path: "/tmp/mac5/10-dock-tinted.png", clip: { x: 330, y: 780, width: 780, height: 120 } });
 
 // phone href check
-const tel = await page.locator('a[aria-label="Call Saleh"]').getAttribute("href");
+const tel = await page.locator('a[aria-label="Call Muskan"]').getAttribute("href");
 console.log("phone href:", tel);
 
 // glass over a window: drag Safari down behind dock

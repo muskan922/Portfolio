@@ -26,12 +26,12 @@ export function useBackGuard(onBack: () => void) {
   useEffect(() => {
     // Reloads land back on the sentinel entry — never stack a second one,
     // or leaveSite()'s go(-2) stops short of the real previous page.
-    if (!(history.state as { salehos?: boolean } | null)?.salehos) {
-      history.pushState({ salehos: true }, "");
+    if (!(history.state as { muskanos?: boolean } | null)?.muskanos) {
+      history.pushState({ muskanos: true }, "");
     }
     const onPop = () => {
       if (leaving) return;
-      history.pushState({ salehos: true }, "");
+      history.pushState({ muskanos: true }, "");
       handler.current();
     };
     window.addEventListener("popstate", onPop);
