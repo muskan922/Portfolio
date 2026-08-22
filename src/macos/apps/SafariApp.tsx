@@ -21,7 +21,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   about,
   certificates,
@@ -890,24 +890,38 @@ function SkillLogo({ name }: { name: string }) {
   );
 }
 
+/** Deterministic hash for natural pseudo-random pulse timing per skill card */
+function getSkillGlowTiming(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = (hash << 5) - hash + name.charCodeAt(i);
+    hash |= 0;
+  }
+  const abs = Math.abs(hash);
+  const duration = 3.6 + (abs % 36) / 10; // 3.6s to 7.1s
+  const delay = (abs % 40) / 10; // 0.0s to 3.9s
+  return { duration, delay };
+}
+
 /**
- * Premium Glass-Style Skill Card matching reference design
- * - Dark translucent background
- * - Rounded corners (26px)
- * - Thin purple border & soft purple glow
- * - Large technology icon
- * - Skill name in small rounded pill
+ * Premium Glass-Style Skill Card
+ * - Static card (Zero flip behavior)
+ * - Independent asynchronous random glow
+ * - Full natural text wrapping for long skill names without truncation
+ * - Responsive generous spacing
  */
 function SkillGlassCard({ name }: { name: string }) {
+  const { duration, delay } = useMemo(() => getSkillGlowTiming(name), [name]);
+
   return (
     <div
-      className="interactive-target group relative flex flex-col items-center justify-between p-4 sm:p-5 text-center transition-all duration-300 hover:-translate-y-1.5 cursor-default select-none w-full min-h-[145px] sm:min-h-[160px]"
+      className="interactive-target group relative flex flex-col items-center justify-between p-4 sm:p-5 text-center transition-all duration-300 hover:-translate-y-1.5 cursor-default select-none w-full min-h-[160px] sm:min-h-[175px]"
       style={{
         background: "rgba(20, 28, 48, 0.75)",
-        border: "1px solid rgba(150, 80, 255, 0.35)",
+        border: "1px solid rgba(150, 80, 255, 0.32)",
         borderRadius: "26px",
-        boxShadow: "0 0 18px rgba(140, 70, 255, 0.18), inset 0 0 20px rgba(100, 70, 180, 0.05)",
         backdropFilter: "blur(10px)",
+        animation: `skillCardRandomPulse ${duration}s ease-in-out ${delay}s infinite`,
       }}
     >
       {/* Soft Purple Glow Overlay on Hover */}
@@ -918,9 +932,16 @@ function SkillGlassCard({ name }: { name: string }) {
         <SkillLogo name={name} />
       </div>
 
-      {/* 2. Small Rounded Pill for Skill Name */}
+      {/* 2. Rounded Pill for Skill Name with Natural Wrapping without Truncation */}
       <div className="relative mt-2 z-10 w-full flex justify-center">
-        <span className="inline-block max-w-[130px] truncate rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 font-mono text-[11px] font-medium text-white/90 shadow-sm transition-all duration-300 group-hover:border-purple-400/60 group-hover:bg-purple-500/25 group-hover:text-white">
+        <span
+          className="inline-block w-full max-w-full rounded-2xl border border-purple-400/25 bg-purple-500/10 px-3 py-1.5 font-mono text-[11px] font-medium text-white/90 shadow-sm transition-all duration-300 group-hover:border-purple-400/60 group-hover:bg-purple-500/25 group-hover:text-white text-center leading-snug"
+          style={{
+            whiteSpace: "normal",
+            overflowWrap: "break-word",
+            wordBreak: "normal",
+          }}
+        >
           {name}
         </span>
       </div>
@@ -1149,6 +1170,19 @@ export function SafariApp() {
 
           {/* Section 3: Skills (Reference-Inspired Glassmorphism & Purple Glow Cards) */}
           <div className="w-full space-y-12">
+            <style>{`
+              @keyframes skillCardRandomPulse {
+                0%, 100% {
+                  box-shadow: 0 0 14px rgba(140, 70, 255, 0.14), inset 0 0 15px rgba(100, 70, 180, 0.04);
+                  border-color: rgba(150, 80, 255, 0.28);
+                }
+                50% {
+                  box-shadow: 0 0 28px rgba(168, 85, 247, 0.42), inset 0 0 22px rgba(140, 70, 255, 0.14);
+                  border-color: rgba(168, 85, 247, 0.65);
+                }
+              }
+            `}</style>
+
             <Reveal root={scrollRef}>
               <div className="flex flex-col items-center justify-center text-center mx-auto mb-8 space-y-2">
                 <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
@@ -1163,7 +1197,7 @@ export function SafariApp() {
             </Reveal>
 
             {/* Categorized Centered Skill Groups */}
-            <div className="space-y-10">
+            <div className="space-y-12">
               {skillGroups.map((group, groupIdx) => (
                 <Reveal key={group.label} root={scrollRef} delay={groupIdx * 0.04}>
                   <div className="flex flex-col items-center">
@@ -1176,8 +1210,8 @@ export function SafariApp() {
                       <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
                     </div>
 
-                    {/* Centered Grid of Compact Glass Cards */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 w-full max-w-5xl justify-items-center">
+                    {/* Centered Grid of Compact Glass Cards with Clear Comfortable Spacing */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 sm:gap-6 lg:gap-7 w-full max-w-6xl justify-items-center">
                       {group.skills.map((skill) => (
                         <SkillGlassCard key={skill} name={skill} />
                       ))}
