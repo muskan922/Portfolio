@@ -679,9 +679,9 @@ function ProjectFlipCard({ project, index, scrollRef }: ProjectFlipCardProps) {
               transform: "rotateY(180deg)",
             }}
           >
-            <div>
+            <div className="overflow-y-auto pr-1">
               {/* Header: Tag & Period */}
-              <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2.5">
                 <span className="rounded-full border border-[#e8aa42]/30 bg-[#e8aa42]/10 px-2.5 py-0.5 font-mono text-[10.5px] font-medium text-[#e8aa42]">
                   {project.tag}
                 </span>
@@ -690,20 +690,48 @@ function ProjectFlipCard({ project, index, scrollRef }: ProjectFlipCardProps) {
                 )}
               </div>
 
-              {/* Title & Description */}
-              <h3 className="mt-3.5 text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
-                {project.title}
-              </h3>
-              <p className="mt-2.5 text-[13px] leading-relaxed text-white/75 line-clamp-4 sm:line-clamp-5 font-sans">
+              {/* Title & Far-Right Link Icon */}
+              <div className="mt-3.5 flex items-start justify-between gap-3">
+                <h3
+                  className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug flex-1"
+                  style={{
+                    whiteSpace: "normal",
+                    overflowWrap: "break-word",
+                    wordBreak: "normal",
+                  }}
+                >
+                  {project.title}
+                </h3>
+                {project.link && (
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#38bdf8]/30 bg-[#38bdf8]/10 text-[#38bdf8] transition-colors group-hover:border-[#38bdf8] group-hover:bg-[#38bdf8]/20">
+                    <ExternalLink size={14} />
+                  </span>
+                )}
+              </div>
+
+              {/* Description without any ellipsis or truncation */}
+              <p
+                className="mt-2.5 text-[13px] leading-relaxed text-white/75 font-sans"
+                style={{
+                  whiteSpace: "normal",
+                  overflowWrap: "break-word",
+                  wordBreak: "normal",
+                }}
+              >
                 {project.description}
               </p>
 
               {/* Tech Stack */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="mt-3.5 flex flex-wrap gap-1.5">
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
                     className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 font-mono text-[11px] text-white/80"
+                    style={{
+                      whiteSpace: "normal",
+                      overflowWrap: "break-word",
+                      wordBreak: "normal",
+                    }}
                   >
                     {tech}
                   </span>
@@ -712,7 +740,7 @@ function ProjectFlipCard({ project, index, scrollRef }: ProjectFlipCardProps) {
             </div>
 
             {/* Bottom Actions */}
-            <div className="flex items-center justify-between border-t border-white/10 pt-3.5 mt-2">
+            <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-2 shrink-0">
               <div className="flex items-center gap-2">
                 {project.link && (
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#e8aa42] px-3.5 py-1.5 text-xs font-semibold text-[#101013] shadow-[0_2px_8px_rgba(232,170,66,0.35)] hover:bg-[#f3bc5c] transition-colors">
@@ -722,7 +750,7 @@ function ProjectFlipCard({ project, index, scrollRef }: ProjectFlipCardProps) {
                 )}
               </div>
               <span className="font-mono text-[11px] text-[#38bdf8]/90 group-hover:text-[#38bdf8] transition-colors">
-                Click anywhere to open ↗
+                Open Project ↗
               </span>
             </div>
           </div>
