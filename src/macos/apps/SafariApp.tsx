@@ -1007,14 +1007,14 @@ export function SafariApp() {
         {/* Full-Page Aurora & Particle Background: Covers 100% of the entire scrollable height from Hero to Footer */}
         <SafariAuroraBackground scrollContainerRef={scrollRef} />
 
-        {/* Webpage Content Container: Responsive to Safari's actual container width */}
+        {/* Webpage Content Container: Responsive with reduced left/right padding */}
         <div
-          className={`relative z-10 mx-auto w-full max-w-[1200px] ${
+          className={`relative z-10 mx-auto w-full max-w-[1240px] ${
             isWide
-              ? "px-10 lg:px-14 pt-12 pb-24 space-y-24"
+              ? "px-4 sm:px-6 lg:px-8 pt-10 pb-24 space-y-20"
               : isMedium
-                ? "px-6 sm:px-8 pt-8 pb-16 space-y-16"
-                : "px-4 pt-6 pb-12 space-y-12"
+                ? "px-3.5 sm:px-5 pt-8 pb-16 space-y-16"
+                : "px-3 pt-6 pb-12 space-y-12"
           }`}
         >
           {/* Section 1: Hero & Introduction */}

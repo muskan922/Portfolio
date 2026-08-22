@@ -115,6 +115,23 @@ export const experience: ExperienceItem[] = [
 
 export const projects: Project[] = [
   {
+    title: "Gym Management System",
+    tag: "Fitness Management Platform",
+    period: "2026",
+    description:
+      "A comprehensive full-stack gym management platform facilitating membership subscriptions, workout tracking, trainer schedules, and member analytics with an interactive dashboard.",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    featured: true,
+    link: "https://gym-management-system-teal-eta.vercel.app/",
+    media: [
+      {
+        type: "image",
+        src: "/projects/gym_management.jpg",
+        alt: "Gym Management System Dashboard",
+      },
+    ],
+  },
+  {
     title: "CivicFix",
     tag: "Civic Issue Reporting Platform",
     period: "2026",
@@ -122,7 +139,7 @@ export const projects: Project[] = [
       "Developed a full-stack civic issue reporting platform enabling users to report, track, and monitor local problems such as potholes, garbage, streetlights, and drainage issues. Implemented JWT-based authentication, role-based access, RESTful APIs, and MongoDB integration for secure user and complaint management. Built a responsive dashboard with complaint status tracking and structured issue data, enabling transparent communication between citizens and authorities.",
     tech: ["React.js", "Node.js", "Express.js", "MongoDB", "REST API", "JWT", "Middleware"],
     featured: true,
-    link: "https://github.com/muskan922",
+    link: "https://civic-fix-rose.vercel.app/",
     media: [
       {
         type: "image",
@@ -132,19 +149,19 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "AI-Travel-Agent",
-    tag: "Intelligent AI Travel Assistant",
+    title: "AI Report Analyzer",
+    tag: "AI-Powered Report Analysis App",
     period: "2026",
     description:
-      "An intelligent AI travel agent that automates trip planning, itinerary generation, and travel recommendations using LLM orchestration and Gemini API integrations.",
-    tech: ["Python", "Gemini API", "LLM", "REST API", "AI Agent"],
+      "Built an AI-powered report analysis application using Streamlit and Gemini API to analyze uploaded reports and generate concise, structured insights. Automated document understanding by extracting key findings, summarizing complex content, and presenting actionable information through an interactive interface. Designed a user-friendly workflow for report upload, AI-powered analysis, and result visualization, improving accessibility and reducing manual report-review effort.",
+    tech: ["Python", "Streamlit", "Gemini API", "AI/LLM", "Document Parsing"],
     featured: true,
-    link: "https://github.com/muskan922",
+    link: "https://ai-disease-detector.streamlit.app/",
     media: [
       {
         type: "image",
-        src: "/projects/travel_agent.webp",
-        alt: "AI Travel Assistant Route Planner",
+        src: "/projects/report_analyzer.webp",
+        alt: "AI-Powered Report Analysis Dashboard",
       },
     ],
   },
@@ -162,23 +179,6 @@ export const projects: Project[] = [
         type: "image",
         src: "/projects/webtech_lab.webp",
         alt: "Web Technology Lab Editor Workstation",
-      },
-    ],
-  },
-  {
-    title: "AI-Report-Analyzer",
-    tag: "AI-Powered Report Analysis App",
-    period: "2026",
-    description:
-      "Built an AI-powered report analysis application using Streamlit and Gemini API to analyze uploaded reports and generate concise, structured insights. Automated document understanding by extracting key findings, summarizing complex content, and presenting actionable information through an interactive interface. Designed a user-friendly workflow for report upload, AI-powered analysis, and result visualization, improving accessibility and reducing manual report-review effort.",
-    tech: ["Python", "Streamlit", "Gemini API", "AI/LLM", "Document Parsing"],
-    featured: true,
-    link: "https://github.com/muskan922",
-    media: [
-      {
-        type: "image",
-        src: "/projects/report_analyzer.webp",
-        alt: "AI-Powered Report Analysis Dashboard",
       },
     ],
   },

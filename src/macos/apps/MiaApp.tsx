@@ -64,7 +64,7 @@ export function MiaApp({ actions }: MiaAppProps) {
     // 3. Projects
     if (q.includes("project") || q.includes("work") || q.includes("portfolio")) {
       return {
-        text: `Muskan has worked on several projects, including:\n- CivicFix: A civic issue reporting platform.\n- AI-Travel-Agent: An intelligent travel advisor using LLM orchestration.\n- AI-Report-Analyzer: Streamlit app powered by Gemini API to parse reports.\n- WebTech-Lab: Front-end engineering experiments.`,
+        text: `Muskan has worked on several projects, including:\n- Gym Management System: A comprehensive full-stack fitness platform.\n- CivicFix: A civic issue reporting platform.\n- AI-Report-Analyzer: Streamlit app powered by Gemini API to parse reports.\n- WebTech-Lab: Front-end engineering experiments.`,
         actions: [{ label: "Open Projects Explorer", onClick: () => actions.openApp("finder", { initialSection: "projects" }) }],
       };
     }
@@ -80,13 +80,13 @@ export function MiaApp({ actions }: MiaAppProps) {
       };
     }
 
-    // 5. AI-Travel-Agent Specific
-    if (q.includes("travel")) {
-      const p = projects.find((p) => p.title === "AI-Travel-Agent");
+    // 5. Gym Management System Specific
+    if (q.includes("gym") || q.includes("fitness")) {
+      const p = projects.find((p) => p.title.toLowerCase().includes("gym"));
       return {
-        text: p ? `${p.title} (${p.tag}): ${p.description}` : "AI-Travel-Agent is an intelligent AI assistant that automates trip planning and itineraries using LLMs and the Gemini API.",
+        text: p ? `${p.title} (${p.tag}): ${p.description}` : "Gym Management System is a full-stack platform built with React, Node.js, Express, MongoDB, and Tailwind CSS.",
         actions: [
-          { label: "Explore AI Travel Agent Files", onClick: () => actions.openApp("finder", { initialSection: "projects" }) },
+          { label: "Explore Gym Management Files", onClick: () => actions.openApp("finder", { initialSection: "projects" }) },
         ],
       };
     }
