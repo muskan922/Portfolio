@@ -1137,9 +1137,9 @@ export function SafariApp() {
             </div>
           </div>
 
-          {/* Section 2: About Biography (Center-aligned) */}
+          {/* Section 2: About (Center-aligned) */}
           <Reveal root={scrollRef} className="max-w-4xl mx-auto text-center">
-            <SectionHeading subtitle="BIOGRAPHY">About</SectionHeading>
+            <SectionHeading>About</SectionHeading>
             <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-center">
               <p className="text-[14.5px] sm:text-[16px] leading-relaxed text-white/80 font-sans">
                 {about.paragraph}
