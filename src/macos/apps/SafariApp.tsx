@@ -1279,13 +1279,20 @@ export function SafariApp() {
           {/* Section 7: Certificates (Immediately after Education) */}
           <div className="w-full">
             <Reveal root={scrollRef}>
-              <SectionHeading subtitle={`${certificates.length} VERIFIED CREDENTIALS`} icon={Award}>
-                Certificates
-              </SectionHeading>
+              <div className="flex flex-col items-center justify-center text-center mx-auto mb-8 space-y-2">
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
+                  {certificates.length} VERIFIED CREDENTIALS
+                </span>
+                <h2 className="flex items-center justify-center gap-3 font-display font-bold tracking-tight text-white text-[clamp(28px,3.2vw,44px)] leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+                  <Award size={30} className="text-cyan-400 shrink-0" />
+                  <span>Certificates</span>
+                </h2>
+                <div className="h-1 w-14 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_#38bdf8] mt-1" />
+              </div>
             </Reveal>
 
             <div
-              className={`mt-2 grid gap-4 ${
+              className={`mt-4 grid gap-5 ${
                 containerWidth >= 880
                   ? "grid-cols-3"
                   : containerWidth >= 560
@@ -1300,26 +1307,47 @@ export function SafariApp() {
                     tabIndex={0}
                     onClick={() => setActiveCert(cert)}
                     onKeyDown={(e) => e.key === "Enter" && setActiveCert(cert)}
-                    className="interactive-target group flex h-full min-h-[160px] cursor-pointer flex-col justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 text-left backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#e8aa42]/40 hover:bg-white/[0.06]"
+                    className="interactive-target group flex h-full min-h-[220px] cursor-pointer flex-col justify-between rounded-2xl border border-cyan-500/25 bg-[#0c1322]/90 p-5 text-left backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_12px_36px_rgba(56,189,248,0.25)]"
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 font-mono text-[10px] text-white/65 group-hover:border-[#e8aa42]/30 group-hover:text-[#e8aa42]">
-                          <CheckCircle2 size={10} className="text-emerald-400" />
-                          Verified
-                        </span>
-                        <Award size={15} className="text-white/30 group-hover:text-[#e8aa42] transition-colors" />
+                      {/* Image / Document Presentation with object-fit: contain */}
+                      <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl bg-[#060a12]/80 border border-white/10 p-3 flex items-center justify-center">
+                        {(cert as CertificateDetail).url ? (
+                          <img
+                            src={(cert as CertificateDetail).url}
+                            alt={cert.name}
+                            loading="lazy"
+                            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center justify-center text-center p-2">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+                              <Award size={24} />
+                            </div>
+                            <span className="mt-2 font-mono text-[10px] text-cyan-400/90 uppercase tracking-widest font-semibold">
+                              Credential Document
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute top-2.5 right-2.5">
+                          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 font-mono text-[9.5px] font-medium text-emerald-400 backdrop-blur-sm shadow-sm">
+                            <CheckCircle2 size={9} />
+                            Verified
+                          </span>
+                        </div>
                       </div>
 
-                      <h4 className="mt-3 text-[14px] font-semibold leading-snug text-white group-hover:text-[#e8aa42] transition-colors">
+                      {/* Certificate Title */}
+                      <h4 className="mt-3.5 text-[14.5px] font-bold leading-snug text-white group-hover:text-cyan-300 transition-colors">
                         {cert.name}
                       </h4>
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2.5 text-xs text-white/45">
-                      <span className="font-mono text-xs">{cert.org}</span>
-                      <span className="font-mono text-[11px] text-[#e8aa42]/80 opacity-0 group-hover:opacity-100 transition-opacity">
-                        View details →
+                    {/* Organization & Action */}
+                    <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs text-white/50 font-mono">
+                      <span className="text-cyan-400/80 font-medium">{cert.org}</span>
+                      <span className="text-[11px] text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                        View Details →
                       </span>
                     </div>
                   </div>
