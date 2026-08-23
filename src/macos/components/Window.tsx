@@ -17,8 +17,6 @@ export interface WindowFrame {
 
 /** Vertical space reserved for the dock so a maximized window never sits under it. */
 const DOCK_RESERVE = 94;
-/** Uniform gap between a maximized window and every screen edge. */
-const MAX_MARGIN = 10;
 const MIN_W = 380;
 const MIN_H = 260;
 
@@ -94,19 +92,19 @@ export function Window({
   // Restoring runs the reverse — shrink back, then glide into place.
   const toggleMaximize = () => {
     const desk = desktopSize();
-    // Equal margin on all four sides; the bottom edge additionally clears the dock.
-    const maxW = desk.w - MAX_MARGIN * 2;
-    const maxH = desk.h - DOCK_RESERVE - MAX_MARGIN;
+    // Fill the available desktop space edge-to-edge; bottom clears the dock.
+    const maxW = desk.w;
+    const maxH = desk.h - DOCK_RESERVE;
     if (!maximized) {
       restoreTo.current = { x: x.get(), y: y.get(), w: w.get(), h: h.get() };
       if (reduce) {
-        x.set(MAX_MARGIN);
-        y.set(MAX_MARGIN);
+        x.set(0);
+        y.set(0);
         w.set(maxW);
         h.set(maxH);
       } else {
-        animate(x, MAX_MARGIN, { duration: 0.22, ease: "easeOut" });
-        animate(y, MAX_MARGIN, { duration: 0.22, ease: "easeOut" });
+        animate(x, 0, { duration: 0.22, ease: "easeOut" });
+        animate(y, 0, { duration: 0.22, ease: "easeOut" });
         animate(w, maxW, { duration: 0.26, delay: 0.18, ease: [0.32, 0.72, 0, 1] });
         animate(h, maxH, { duration: 0.26, delay: 0.18, ease: [0.32, 0.72, 0, 1] });
       }
@@ -161,8 +159,8 @@ export function Window({
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
     };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerup", onUp, { passive: true });
   };
 
   return (
@@ -198,8 +196,8 @@ export function Window({
           Transform-only: animating opacity over a backdrop-blur element makes
           the blur drop out and pop back in when the fade finishes. */}
       <motion.div
-        className={`flex h-full w-full flex-col overflow-hidden border shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl ${
-          maximized ? "rounded-lg" : "rounded-xl"
+        className={`flex h-full w-full flex-col overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl ${
+          maximized ? "rounded-none border-x-0 border-t-0 border-b" : "rounded-xl border"
         } ${dark ? "border-white/10 bg-[var(--win-dark)]" : "border-white/15 bg-[var(--win)]"}`}
         initial={reduce ? false : { scale: 0.9, y: 14 }}
         animate={

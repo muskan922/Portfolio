@@ -143,7 +143,7 @@ export function MiaApp({ actions }: MiaAppProps) {
     // 11. Recruiter Mode Specific Actions
     if (q.includes("why should i consider") || q.includes("consider") || q.includes("why hire")) {
       return {
-        text: `Why consider Muskan:\n1. Hands-on AI expertise: Experience building applications with Gemini APIs and LLM orchestration.\n2. Solid engineering foundation: B.Tech in CSE with strong knowledge of DS & Algorithms.\n3. Verified achievements: Google Cloud Generative AI Studio and IBM Prompt Engineering credentials.`,
+        text: `Why consider Muskan:\n1. Hands-on AI expertise: Experience building applications with Gemini APIs and LLM orchestration.\n2. Solid engineering foundation: B.Tech in CSE with strong knowledge of DS & Algorithms.\n3. Key achievements: Google Cloud Generative AI Studio and IBM Prompt Engineering credentials.`,
         actions: [
           { label: "Open Resume PDF", onClick: () => actions.openApp("preview") },
           { label: "Open Contact App", onClick: () => actions.openApp("contact") },

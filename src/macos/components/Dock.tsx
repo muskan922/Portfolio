@@ -31,9 +31,18 @@ interface DockItemProps {
 
 function DockItem({ item, mouseX, onContextMenu }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const boundsRef = useRef<{ x: number; width: number } | null>(null);
 
   const distance = useTransform(mouseX, (value) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    if (value === Infinity) {
+      boundsRef.current = null;
+      return Infinity;
+    }
+    if (!boundsRef.current && ref.current) {
+      const b = ref.current.getBoundingClientRect();
+      boundsRef.current = { x: b.x, width: b.width };
+    }
+    const bounds = boundsRef.current ?? { x: 0, width: 0 };
     return value - bounds.x - bounds.width / 2;
   });
   const sizeRaw = useTransform(

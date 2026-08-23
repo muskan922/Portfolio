@@ -31,7 +31,7 @@ export function DesktopIcon({
     <button
       type="button"
       data-desktop-icon={id}
-      className="flex w-20 flex-col items-center gap-1 outline-none"
+      className="group flex w-20 flex-col items-center gap-1 outline-none transition-transform duration-200 hover:-translate-y-1 hover:scale-105 active:scale-95"
       draggable={Boolean(fsNodeId)}
       onDragStart={(event) => {
         if (!fsNodeId) return;
@@ -67,17 +67,17 @@ export function DesktopIcon({
       aria-pressed={selected}
     >
       <span
-        className={`flex h-14 w-14 items-center justify-center rounded-lg p-0.5 ${
+        className={`flex h-14 w-14 items-center justify-center rounded-lg p-0.5 transition-all duration-200 group-hover:drop-shadow-[0_8px_16px_rgba(0,0,0,0.4)] ${
           selected ? "bg-white/25 ring-1 ring-white/30" : ""
         }`}
       >
         {icon}
       </span>
       <span
-        className={`max-w-full truncate rounded px-1.5 py-0.5 text-xs font-medium ${
+        className={`max-w-full truncate rounded px-1.5 py-0.5 text-xs font-medium transition-colors duration-150 ${
           selected
             ? "bg-[#2a7de1] text-[#fff]"
-            : "text-[#fff] [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]"
+            : "text-[#fff] [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] group-hover:text-white"
         }`}
       >
         {label}

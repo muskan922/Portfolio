@@ -42,12 +42,12 @@ export function ContactApp() {
   };
 
   const field =
-    "w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/30 outline-none focus:border-[#5aa7f2]/70";
+    "w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/30 outline-none transition-all duration-200 focus:border-[#5aa7f2] focus:bg-white/[0.08] focus:shadow-[0_0_14px_rgba(90,167,242,0.35)]";
 
   return (
     <div className="flex h-full flex-col gap-5 overflow-y-auto p-5 sm:flex-row">
       <div className="sm:w-56 sm:shrink-0">
-        <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-[#e8aa42]/60">
+        <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-[#e8aa42]/60 shadow-[0_0_15px_rgba(232,170,66,0.3)] transition-transform duration-300 hover:scale-105">
           <img
             src="/images/muskan/muskan-about.webp"
             alt={site.name}
@@ -60,19 +60,19 @@ export function ContactApp() {
         <p className="text-xs text-white/50">{site.role}</p>
 
         <div className="mt-4 space-y-2 text-[13px]">
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={`mailto:${site.email}`} className="flex items-center gap-2 text-white/75 hover:text-white transition-colors duration-150">
             <Mail size={14} className="text-[#5aa7f2]" />
             {site.email}
           </a>
-          <a href={`tel:${site.phone.replace(/\s+/g, "")}`} className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={`tel:${site.phone.replace(/\s+/g, "")}`} className="flex items-center gap-2 text-white/75 hover:text-white transition-colors duration-150">
             <Phone size={14} className="text-[#34d058]" />
             {site.phone}
           </a>
-          <a href={site.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white transition-colors duration-150">
             <Github size={14} className="text-white/60" />
             {site.github.replace("https://", "")}
           </a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/75 hover:text-white transition-colors duration-150">
             <Linkedin size={14} className="text-[#5aa7f2]" />
             LinkedIn
           </a>
@@ -125,7 +125,7 @@ export function ContactApp() {
             <button
               type="submit"
               disabled={state === "sending"}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#2a7de1] px-5 py-2 text-sm font-medium text-[#fff] hover:bg-[#3b8af0] disabled:opacity-60"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#2a7de1] px-5 py-2 text-sm font-medium text-white shadow-[0_2px_10px_rgba(42,125,225,0.3)] hover:bg-[#3b8af0] hover:shadow-[0_4px_16px_rgba(42,125,225,0.45)] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 disabled:opacity-60"
             >
               {state === "sending" ? (
                 <Loader2 size={14} className="animate-spin" />

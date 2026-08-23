@@ -63,7 +63,6 @@ import { WALLPAPERS, wallpaperStyle } from "./lib/wallpapers";
 import { sfx } from "./lib/sfx";
 
 const CV_URL = "/resume/Muskan_Kumari_Resume.pdf";
-const WELCOME_KEY = "macos-welcomed";
 
 type AppId =
   | "finder"
@@ -111,7 +110,12 @@ const APP_TITLES: Record<AppId, string> = {
 };
 
 const FRAMES: Record<AppId, WindowFrame> = {
-  safari: { x: 180, y: 40, w: 860, h: 580 },
+  safari: {
+    x: typeof window !== "undefined" ? Math.max(16, Math.round((window.innerWidth - 920) / 2)) : 160,
+    y: 30,
+    w: 920,
+    h: 620,
+  },
   finder: { x: 80, y: 90, w: 760, h: 480 },
   terminal: { x: 320, y: 150, w: 620, h: 420 },
   preview: { x: 220, y: 30, w: 780, h: 640 },
@@ -214,23 +218,7 @@ export default function MacOS() {
     if (booted.current) return;
     booted.current = true;
     document.title = "Muskan Kumari — Software Engineer / Full-Stack Developer";
-    openApp("finder", undefined, true);
     openApp("safari", undefined, true);
-    // First visit: open the welcome tour so nobody is confused.
-    let welcomed = false;
-    try {
-      welcomed = Boolean(localStorage.getItem(WELCOME_KEY));
-    } catch {
-      /* private mode */
-    }
-    if (!welcomed) {
-      openApp("welcome", undefined, true);
-      try {
-        localStorage.setItem(WELCOME_KEY, "1");
-      } catch {
-        /* fine */
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -392,18 +380,24 @@ export default function MacOS() {
       setSelectedIcons(hits);
     };
 
+    let moveRaf: number | null = null;
     const onMove = (move: PointerEvent) => {
+      if (moveRaf) return;
       const next = { x0: origin.x, y0: origin.y, x1: move.clientX, y1: move.clientY };
-      setBand(next);
-      updateSelection(next);
+      moveRaf = requestAnimationFrame(() => {
+        setBand(next);
+        updateSelection(next);
+        moveRaf = null;
+      });
     };
     const onUp = () => {
+      if (moveRaf) cancelAnimationFrame(moveRaf);
       setBand(null);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
     };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerup", onUp, { passive: true });
   };
 
   const activeWin = [...wins].filter((win) => !win.minimized).sort((a, b) => b.z - a.z)[0];

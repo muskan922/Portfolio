@@ -136,8 +136,8 @@ export const projects: Project[] = [
     tag: "Civic Issue Reporting Platform",
     period: "2026",
     description:
-      "Developed a full-stack civic issue reporting platform enabling users to report, track, and monitor local problems such as potholes, garbage, streetlights, and drainage issues. Implemented JWT-based authentication, role-based access, RESTful APIs, and MongoDB integration for secure user and complaint management. Built a responsive dashboard with complaint status tracking and structured issue data, enabling transparent communication between citizens and authorities.",
-    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "REST API", "JWT", "Middleware"],
+      "A full-stack civic issue reporting platform that enables users to report local problems, track complaint resolution in real-time, and streamline transparent communication with authorities.",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "REST API", "JWT"],
     featured: true,
     link: "https://civic-fix-rose.vercel.app/",
     media: [
@@ -153,7 +153,7 @@ export const projects: Project[] = [
     tag: "AI-Powered Report Analysis App",
     period: "2026",
     description:
-      "Built an AI-powered report analysis application using Streamlit and Gemini API to analyze uploaded reports and generate concise, structured insights. Automated document understanding by extracting key findings, summarizing complex content, and presenting actionable information through an interactive interface. Designed a user-friendly workflow for report upload, AI-powered analysis, and result visualization, improving accessibility and reducing manual report-review effort.",
+      "An AI-powered document analysis application built with Streamlit and Gemini API that parses uploaded reports, summarizes key findings, and extracts structured insights automatically.",
     tech: ["Python", "Streamlit", "Gemini API", "AI/LLM", "Document Parsing"],
     featured: true,
     link: "https://ai-disease-detector.streamlit.app/",
@@ -208,8 +208,12 @@ export const skillGroups: SkillGroup[] = [
     skills: ["React.js", "Next.js", "Tailwind CSS", "Responsive Design"],
   },
   {
-    label: "Databases & Tools",
-    skills: ["MongoDB", "PostgreSQL", "SQL", "Git", "GitHub", "Postman", "Netlify", "Render", "VS Code", "Vercel"],
+    label: "Databases",
+    skills: ["MongoDB", "PostgreSQL", "SQL"],
+  },
+  {
+    label: "Tools",
+    skills: ["Git", "GitHub", "Postman", "Netlify", "Render", "VS Code", "Vercel"],
   },
 ];
 

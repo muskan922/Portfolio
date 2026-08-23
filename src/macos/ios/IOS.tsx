@@ -53,8 +53,6 @@ import { useSettings, useWallpaperShuffle } from "../lib/settings";
 import { WALLPAPERS, wallpaperStyle } from "../lib/wallpapers";
 import { sfx } from "../lib/sfx";
 
-const WELCOME_KEY = "macos-welcomed";
-
 type IosAppId =
   | "safari"
   | "finder"
@@ -430,7 +428,7 @@ function IosAppFrame({
 export default function IOS() {
   const settings = useSettings();
   useWallpaperShuffle();
-  const [open, setOpen] = useState<IosAppId | null>(null);
+  const [open, setOpen] = useState<IosAppId | null>("safari");
   const [fileId, setFileId] = useState<string | null>(null);
   const [finderSection, setFinderSection] = useState<FinderSection | null>(
     null,
@@ -441,7 +439,7 @@ export default function IOS() {
   } | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [booting, setBooting] = useState(true);
+  const [booting, setBooting] = useState(false);
   const pullRef = useRef<{ y: number; at: number } | null>(null);
 
   // Browser back walks the UI stack (search → sheet → app) before it is
@@ -462,20 +460,6 @@ export default function IOS() {
 
   useEffect(() => {
     document.title = "Muskan Kumari — Software Engineer / Full-Stack Developer";
-    let welcomed = false;
-    try {
-      welcomed = Boolean(localStorage.getItem(WELCOME_KEY));
-    } catch {
-      /* private mode */
-    }
-    if (!welcomed) {
-      setOpen("welcome");
-      try {
-        localStorage.setItem(WELCOME_KEY, "1");
-      } catch {
-        /* fine */
-      }
-    }
   }, []);
 
   const launch = (id: IosAppId) => {

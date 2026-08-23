@@ -18,14 +18,18 @@ export function MiaWidget({ onOpen }: MiaWidgetProps) {
   const [fade, setFade] = useState(true);
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     const id = setInterval(() => {
       setFade(false);
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setGreetingIndex((prev) => (prev + 1) % GREETINGS.length);
         setFade(true);
-      }, 500); // duration of fade-out before changing greeting
+      }, 500);
     }, 6000);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   const handleClick = () => {
