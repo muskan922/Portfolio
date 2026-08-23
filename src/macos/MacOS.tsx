@@ -801,20 +801,12 @@ export default function MacOS() {
     }
   };
 
-  const builtinIcons = [
-    {
-      id: "my-portfolio",
-      label: "MY PORTFOLIO",
-      icon: <FolderGlyph className="h-12 w-14" />,
-      open: () => openApp("finder", { initialSection: "my-portfolio" as any }),
-    },
-    {
-      id: "welcome",
-      label: "Welcome",
-      icon: <TextFileGlyph className="h-12 w-10" />,
-      open: () => openApp("welcome"),
-    },
-  ];
+  const builtinIcons: Array<{
+    id: string;
+    label: string;
+    icon: React.ReactNode;
+    open: () => void;
+  }> = [];
 
   const rootNodes = fsNodes.filter((node) => node.parentId === null);
 
@@ -836,7 +828,7 @@ export default function MacOS() {
       <DesktopHero />
 
       <MenuBar
-        activeApp={activeWin ? APP_TITLES[activeWin.app].split(" — ")[0]! : "Finder"}
+        activeApp={activeWin ? APP_TITLES[activeWin.app].split(" — ")[0]! : "Safari"}
         appleEntries={appleEntries}
         menus={menus}
         fullscreen={fullscreen}

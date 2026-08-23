@@ -71,6 +71,11 @@ export function Window({
 
   // Clamp the opening size and position so windows never spawn off-screen.
   const [start] = useState(() => {
+    if (maximized) {
+      const deskW = typeof window !== "undefined" ? window.innerWidth : 1200;
+      const deskH = typeof window !== "undefined" ? Math.max(400, window.innerHeight - 28 - DOCK_RESERVE) : 700;
+      return { x: 0, y: 0, w: deskW, h: deskH };
+    }
     const w = Math.min(frame.w, window.innerWidth - 16);
     const h = Math.min(frame.h, window.innerHeight - 28 - DOCK_RESERVE - 8);
     const x = Math.max(0, Math.min(frame.x, window.innerWidth - w - 8));
@@ -81,7 +86,12 @@ export function Window({
   const y = useMotionValue(start.y);
   const w = useMotionValue(start.w);
   const h = useMotionValue(start.h);
-  const restoreTo = useRef({ x: start.x, y: start.y, w: start.w, h: start.h });
+  const restoreTo = useRef({
+    x: Math.max(0, Math.min(frame.x, typeof window !== "undefined" ? window.innerWidth - frame.w - 8 : 100)),
+    y: Math.max(0, Math.min(frame.y, typeof window !== "undefined" ? window.innerHeight - 28 - DOCK_RESERVE - frame.h : 40)),
+    w: Math.min(frame.w, typeof window !== "undefined" ? window.innerWidth - 16 : 920),
+    h: Math.min(frame.h, typeof window !== "undefined" ? window.innerHeight - 28 - DOCK_RESERVE - 8 : 620),
+  });
 
   const desktopSize = () => {
     const rect = constraintsRef.current?.getBoundingClientRect();
