@@ -5,12 +5,12 @@ export function AboutApp() {
     <div className="flex h-full flex-col md:flex-row items-center md:items-stretch gap-6 p-6 text-white overflow-y-auto selection:bg-[#2a7de1]/40">
       {/* LEFT COLUMN: Photo and Technical Frame */}
       <div className="w-full md:w-1/3 flex flex-col items-center justify-start border border-white/10 bg-white/5 rounded-xl p-4 shrink-0 max-w-[240px] md:max-w-none">
-        <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-white/15 bg-black/40">
+        <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-white/15 bg-black/40 flex items-center justify-center p-1">
           <img
-            src="/images/muskan/muskan-about.webp"
+            src="/muskan.jpeg"
             alt={site.name}
             loading="lazy"
-            className="h-full w-full object-cover object-top"
+            className="h-full w-full object-contain object-center rounded"
           />
         </div>
         

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body style="margin:0; background:#fff;">
+  <canvas id="pdf-canvas"></canvas>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    
+    async function renderPDF() {
+      const url = '/certificates/cert_02_ibm_prompts.pdf';
+      const loadingTask = pdfjsLib.getDocument(url);
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(1);
+      
+      const viewport = page.getViewport({ scale: 2.0 });
+      const canvas = document.getElementById('pdf-canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport
+      };
+      await page.render(renderContext).promise;
+      
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      
+      // Post to local endpoint or store in localStorage / window
+      window.__CERT_IMAGE_DATA__ = dataUrl;
+      document.title = "RENDER_COMPLETE";
+    }
+    renderPDF();
+  </script>
+</body>
+</html>

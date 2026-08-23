@@ -64,6 +64,8 @@ export interface EducationItem {
 export interface Certificate {
   name: string;
   org: string;
+  image?: string;
+  credentialId?: string;
 }
 
 export const site: SiteInfo = {
@@ -104,12 +106,12 @@ export const about: AboutContent = {
 export const experience: ExperienceItem[] = [
   {
     company: "Eimple Lab",
-    role: "Frontend Development Intern",
-    period: "2025 – 2026",
+    role: "Web Development Internship",
+    period: "November, 2025 – July, 2026",
     bullets: [
-      "Developed a full-stack web application using React.js and Tailwind CSS, creating a responsive and user-friendly interface for seamless navigation across devices",
-      "Built backend services using Node.js and REST APIs, integrating PostgreSQL for structured and reliable data management",
-      "Implemented reusable UI components, responsive layouts, and database-driven functionality to deliver an efficient and scalable web application",
+      "Developed a full-stack web application using React.js and Tailwind CSS, creating a responsive and user-friendly interface for seamless navigation across devices.",
+      "Built backend services using Node.js and REST APIs, integrating PostgreSQL for structured and reliable data management.",
+      "Implemented reusable UI components, responsive layouts, and database-driven functionality to deliver an efficient and scalable web application.",
     ],
   },
 ];
@@ -224,13 +226,70 @@ export const education: EducationItem[] = [
 ];
 
 export const certificates: Certificate[] = [
-  { name: "Generative AI Studio", org: "Google Cloud (2025)" },
-  { name: "Craft Precise Prompts for AI Model", org: "IBM (2026)" },
-  { name: "Advanced Software Engineering Job Simulation", org: "Walmart (2026)" },
-  { name: "Git Training", org: "SkillUp (2026)" },
-  { name: "Cloud Infrastructure Analyst", org: "Skill India Digital Hub (2026)" },
-  { name: "Customer Service Job Simulation", org: "Forage (2026)" },
-  { name: "AI Quiz Ignite", org: "Nexus (2026)" },
-  { name: "QuizOff 2026", org: "CampusCrew (2026)" },
-  { name: "QuestUp 2026: India’s Biggest AI", org: "Falcon Sphere (2026)" },
+  {
+    name: "Generative AI Studio",
+    org: "Google Cloud (2025)",
+    image: "/certificates/cert_01_generative_ai_studio.jpg",
+    credentialId: "9289893",
+  },
+  {
+    name: "Craft Precise Prompts for AI Model",
+    org: "IBM (2026)",
+    image: "/certificates/cert_02_ibm_prompts.pdf",
+    credentialId: "WzX5OhHz",
+  },
+  {
+    name: "Advanced Software Engineering Job Simulation",
+    org: "Walmart (2026)",
+    image: "/certificates/cert_03_walmart_swe.pdf",
+    credentialId: "zMJFHrTkzKtm2ojnM",
+  },
+  {
+    name: "Cyber Job Simulation",
+    org: "Deloitte (2026)",
+    image: "/certificates/cert_04_deloitte_cyber.pdf",
+    credentialId: "6a81df96aa694bdf89bf188f",
+  },
+  {
+    name: "AI Skills Passport",
+    org: "EY + Microsoft (2026)",
+    image: "/certificates/cert_05_ey_microsoft_ai.pdf",
+    credentialId: "EY-MSFT-2026-AI",
+  },
+  {
+    name: "Git Training",
+    org: "SkillUp (2026)",
+    image: "/certificates/cert_06_simplilearn_git.pdf",
+    credentialId: "10447406",
+  },
+  {
+    name: "Cloud Infrastructure Analyst",
+    org: "Skill India Digital Hub (2026)",
+    image: "/certificates/cert_07_skill_india_cloud.pdf",
+    credentialId: "SIDH-NASSCOM-2026",
+  },
+  {
+    name: "Customer Service Job Simulation",
+    org: "Forage (2026)",
+    image: "/certificates/cert_08_forage_customer_service.pdf",
+    credentialId: "6a571f4ebd526a9c3421c1b0",
+  },
+  {
+    name: "AI Quiz Ignite",
+    org: "Nexus (2026)",
+    image: "/certificates/cert_09_nexus_ai_quiz.pdf",
+    credentialId: "NEXUS-AI-IGNITE-2026",
+  },
+  {
+    name: "QuizOff 2026",
+    org: "CampusCrew (2026)",
+    image: "/certificates/cert_10_campuscrew_quizoff.jpg",
+    credentialId: "QUIZOFF-2026-CC",
+  },
+  {
+    name: "QuestUp 2026: India’s Biggest AI",
+    org: "Falcon Sphere (2026)",
+    image: "/certificates/cert_11_falcon_sphere_questup.pdf",
+    credentialId: "QUESTUP-2026-FS",
+  },
 ];

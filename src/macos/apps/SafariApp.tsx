@@ -7,13 +7,12 @@ import {
   Code2,
   ExternalLink,
   FileCheck,
+  FileText,
   Github,
   GraduationCap,
   Linkedin,
   Lock,
   Mail,
-  MapPin,
-  Phone,
   Plus,
   RotateCw,
   Share,
@@ -22,7 +21,6 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
-  about,
   certificates,
   education,
   experience,
@@ -70,7 +68,7 @@ function SectionHeading({
   icon?: any;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center mx-auto mb-8 space-y-2">
+    <div className="flex flex-col items-center justify-center text-center mx-auto mb-9 sm:mb-10 space-y-3.5 pt-1">
       {subtitle && (
         <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#e8aa42]">
           {subtitle}
@@ -80,7 +78,7 @@ function SectionHeading({
         {Icon && <Icon size={28} className="text-[#e8aa42] shrink-0" />}
         <span>{children}</span>
       </h2>
-      <div className="h-1 w-12 rounded-full bg-gradient-to-r from-transparent via-[#e8aa42] to-transparent opacity-80 mt-1" />
+      <div className="h-1 w-12 rounded-full bg-gradient-to-r from-transparent via-[#e8aa42] to-transparent opacity-80 mt-1.5" />
     </div>
   );
 }
@@ -495,11 +493,11 @@ function ProjectFlipCard({ project }: ProjectFlipCardProps) {
           }
         }}
         aria-label={`${project.title} - Click to open live project`}
-        className="interactive-target group relative w-full h-[420px] cursor-pointer rounded-2xl select-none"
+        className="interactive-target group relative w-full max-w-[340px] sm:max-w-[360px] mx-auto min-h-[340px] sm:min-h-[360px] h-[340px] sm:h-[360px] cursor-pointer rounded-2xl select-none"
         style={{ perspective: "1200px" }}
       >
         <div
-          className="relative h-full w-full rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-transform duration-500 hover:shadow-[0_14px_44px_rgba(56,189,248,0.28)]"
+          className="relative h-full w-full rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.35)] transition-transform duration-500 hover:shadow-[0_10px_32px_rgba(56,189,248,0.28)]"
           style={{
             transformStyle: "preserve-3d",
             transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -507,14 +505,14 @@ function ProjectFlipCard({ project }: ProjectFlipCardProps) {
         >
           {/* FRONT SIDE: Project Image ONLY (No title, no description, no tech stack, no extra text) */}
           <div
-            className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl border border-white/20 bg-[#10111a] shadow-2xl transition-all duration-300 group-hover:border-[#38bdf8] group-hover:shadow-[0_0_24px_rgba(56,189,248,0.35)]"
+            className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl border border-white/20 bg-[#10111a] shadow-xl transition-all duration-300 group-hover:border-[#38bdf8] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
           >
             {project.media?.[0] ? (
-              <div className="h-full w-full p-2.5">
+              <div className="h-full w-full p-2">
                 <div className="h-full w-full overflow-hidden rounded-xl bg-black/50">
                   <LazyMedia
                     media={project.media[0]}
@@ -523,16 +521,16 @@ function ProjectFlipCard({ project }: ProjectFlipCardProps) {
                 </div>
               </div>
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/5 text-white/40 font-mono text-sm">
+              <div className="flex h-full w-full items-center justify-center bg-white/5 text-white/40 font-mono text-xs">
                 Project Preview
               </div>
             )}
             <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/[0.04] via-transparent to-black/25" />
           </div>
 
-          {/* BACK SIDE: Complete Project Information */}
+          {/* BACK SIDE: Complete Project Information (Compact & perfectly proportioned) */}
           <div
-            className="absolute inset-0 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-[#12131c]/95 p-6 sm:p-7 backdrop-blur-xl shadow-2xl text-left transition-all duration-300 group-hover:border-[#38bdf8] group-hover:shadow-[0_0_24px_rgba(56,189,248,0.35)]"
+            className="absolute inset-0 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-[#12131c]/95 p-4 sm:p-4.5 backdrop-blur-xl shadow-xl text-left transition-all duration-300 group-hover:border-[#38bdf8] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
@@ -544,62 +542,64 @@ function ProjectFlipCard({ project }: ProjectFlipCardProps) {
               className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0"
               style={{
                 background:
-                  "radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.12), transparent 70%)",
+                  "radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.12), transparent 70%)",
               }}
             />
 
-            <div className="relative z-10 flex-1 overflow-y-auto pr-1">
-              {/* Tag */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
-                <span className="rounded-full border border-[#e8aa42]/30 bg-[#e8aa42]/10 px-2.5 py-0.5 font-mono text-[10.5px] font-medium text-[#e8aa42]">
-                  {project.tag}
-                </span>
-              </div>
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <div className="space-y-2">
+                {/* Tag */}
+                <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+                  <span className="rounded-full border border-[#e8aa42]/30 bg-[#e8aa42]/10 px-2 py-0.5 font-mono text-[9.5px] font-medium text-[#e8aa42]">
+                    {project.tag}
+                  </span>
+                </div>
 
-              {/* Title on Left, Link Icon on Far Right */}
-              <div className="mt-3.5 flex items-start justify-between gap-3">
-                <h3
-                  className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug flex-1 group-hover:text-[#38bdf8] transition-colors"
+                {/* Title on Left, Link Icon on Far Right */}
+                <div className="flex items-start justify-between gap-2 pt-0.5">
+                  <h3
+                    className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug flex-1 group-hover:text-[#38bdf8] transition-colors"
+                    style={{
+                      whiteSpace: "normal",
+                      overflowWrap: "break-word",
+                      wordBreak: "normal",
+                    }}
+                  >
+                    {project.title}
+                  </h3>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg border border-[#38bdf8]/40 bg-[#38bdf8]/10 text-[#38bdf8] transition-all duration-200 hover:border-[#38bdf8] hover:bg-[#38bdf8]/20 hover:scale-105 active:scale-95"
+                      aria-label={`Open ${project.title} live demo in new tab`}
+                    >
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
+                </div>
+
+                {/* Description with normal text wrapping */}
+                <p
+                  className="text-[11.5px] sm:text-[12px] leading-snug text-white/80 font-sans line-clamp-3"
                   style={{
                     whiteSpace: "normal",
                     overflowWrap: "break-word",
                     wordBreak: "normal",
                   }}
                 >
-                  {project.title}
-                </h3>
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#38bdf8]/40 bg-[#38bdf8]/10 text-[#38bdf8] transition-all duration-200 hover:border-[#38bdf8] hover:bg-[#38bdf8]/20 hover:scale-105 active:scale-95"
-                    aria-label={`Open ${project.title} live demo in new tab`}
-                  >
-                    <ExternalLink size={14} />
-                  </a>
-                )}
+                  {project.description}
+                </p>
               </div>
 
-              {/* Description with normal text wrapping */}
-              <p
-                className="mt-3 text-[13px] leading-relaxed text-white/80 font-sans"
-                style={{
-                  whiteSpace: "normal",
-                  overflowWrap: "break-word",
-                  wordBreak: "normal",
-                }}
-              >
-                {project.description}
-              </p>
-
               {/* Tech Stack Pills */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="my-auto pt-1.5 flex flex-wrap gap-1">
                 {project.tech.map((t) => (
                   <span
                     key={t}
-                    className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 font-mono text-[11px] text-white/80"
+                    className="rounded border border-white/10 bg-white/[0.05] px-1.5 py-0.5 font-mono text-[9.5px] text-white/80"
                     style={{
                       whiteSpace: "normal",
                       overflowWrap: "break-word",
@@ -610,14 +610,14 @@ function ProjectFlipCard({ project }: ProjectFlipCardProps) {
                   </span>
                 ))}
               </div>
-            </div>
 
-            {/* Bottom Actions: Clean Live Demo Button */}
-            <div className="relative z-10 mt-4 flex items-center justify-center border-t border-white/10 pt-3 shrink-0">
-              <span className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#e8aa42] px-4 py-2 text-xs font-semibold text-[#101013] shadow-[0_2px_8px_rgba(232,170,66,0.35)] hover:bg-[#f3bc5c] active:scale-95 transition-all">
-                <ExternalLink size={13} />
-                Live Demo
-              </span>
+              {/* Bottom Actions: Clean Live Demo Button */}
+              <div className="relative z-10 mt-auto pt-2.5 border-t border-white/10 flex items-center justify-center shrink-0">
+                <span className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#e8aa42] px-3 py-1.5 text-[11px] font-semibold text-[#101013] shadow-[0_2px_8px_rgba(232,170,66,0.35)] hover:bg-[#f3bc5c] active:scale-95 transition-all">
+                  <ExternalLink size={11} />
+                  Live Demo
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -878,8 +878,99 @@ function SkillGlassCard({
 }
 
 /**
- * Continuous Infinite Right-to-Left Scrolling Certificate Carousel
- * - Smooth, continuous, seamless loop
+ * Universal Certificate Media Component (Supports JPG, PNG, and Vector PDF via HTML5 Canvas)
+ */
+function CertificateMedia({
+  src,
+  alt,
+  className = "h-full w-full object-contain object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.03]",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  const isPdf = src.toLowerCase().endsWith(".pdf");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    if (!isPdf) return;
+    let isCancelled = false;
+
+    async function renderPdf() {
+      try {
+        if (!(window as any).pdfjsLib) {
+          const script = document.createElement("script");
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+          document.head.appendChild(script);
+          await new Promise((resolve) => {
+            script.onload = resolve;
+          });
+          (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        }
+
+        const loadingTask = (window as any).pdfjsLib.getDocument(src);
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1);
+        const canvas = canvasRef.current;
+        if (!canvas || isCancelled) return;
+
+        const viewport = page.getViewport({ scale: 1.6 });
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({
+          canvasContext: context,
+          viewport: viewport,
+        }).promise;
+
+        if (!isCancelled) setIsRendered(true);
+      } catch (err) {
+        console.error("Failed to render PDF preview:", err);
+      }
+    }
+
+    renderPdf();
+    return () => {
+      isCancelled = true;
+    };
+  }, [src, isPdf]);
+
+  if (isPdf) {
+    return (
+      <div className="relative h-full w-full flex items-center justify-center">
+        <canvas
+          ref={canvasRef}
+          className={`${className} ${!isRendered ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+        />
+        {!isRendered && (
+          <div className="absolute inset-0 flex items-center justify-center text-white/30 text-xs font-mono">
+            Loading preview…
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      className={className}
+    />
+  );
+}
+
+/**
+ * Continuous Infinite Left-to-Right Scrolling Certificate Carousel
+ * - Displays all 11 genuine verified certificates
+ * - Direction: LEFT → RIGHT (→)
+ * - Smooth, continuous, seamless infinite loop
  * - Hover / touch-and-hold to pause
  * - Drag / swipe support
  * - Click to open Certificate preview modal
@@ -903,7 +994,7 @@ function CertificateCarousel({
   const animIdRef = useRef(0);
   const resumeTimeoutRef = useRef<number | null>(null);
 
-  // Triple the items to ensure a seamless infinite loop
+  // Triple the items to ensure a seamless infinite loop (3 sets of 11 unique certificates)
   const items = [...certificates, ...certificates, ...certificates];
 
   useEffect(() => {
@@ -915,21 +1006,26 @@ function CertificateCarousel({
     const measure = () => {
       if (!track) return;
       singleSetWidth = track.scrollWidth / 3;
+      if (currentTranslateRef.current === 0 && singleSetWidth > 0) {
+        currentTranslateRef.current = -singleSetWidth;
+        track.style.transform = `translate3d(${currentTranslateRef.current}px, 0, 0)`;
+      }
     };
 
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(track);
 
-    const speed = 0.65; // pixels per frame
+    const speed = 0.65; // pixels per frame (smooth LEFT → RIGHT continuous scroll)
 
     const loop = () => {
       if (!isHoveredRef.current && !isDraggingRef.current) {
-        currentTranslateRef.current -= speed;
+        // Increment translation for LEFT → RIGHT movement
+        currentTranslateRef.current += speed;
 
         if (singleSetWidth > 0) {
-          if (Math.abs(currentTranslateRef.current) >= singleSetWidth) {
-            currentTranslateRef.current += singleSetWidth;
+          if (currentTranslateRef.current >= 0) {
+            currentTranslateRef.current -= singleSetWidth;
           }
         }
 
@@ -966,10 +1062,10 @@ function CertificateCarousel({
     const track = trackRef.current;
     const singleSetWidth = track.scrollWidth / 3;
     if (singleSetWidth > 0) {
-      if (currentTranslateRef.current > 0) {
+      if (currentTranslateRef.current >= 0) {
         currentTranslateRef.current -= singleSetWidth;
         prevTranslateRef.current -= singleSetWidth;
-      } else if (Math.abs(currentTranslateRef.current) >= singleSetWidth) {
+      } else if (currentTranslateRef.current < -2 * singleSetWidth) {
         currentTranslateRef.current += singleSetWidth;
         prevTranslateRef.current += singleSetWidth;
       }
@@ -1016,7 +1112,7 @@ function CertificateCarousel({
                 credentialId:
                   "credId" in cert
                     ? (cert as any).credId
-                    : "REC-" + Math.floor(100000 + Math.random() * 900000),
+                    : cert.credentialId || "REC-" + Math.floor(100000 + Math.random() * 900000),
               });
             }}
             onPointerMove={(e) => {
@@ -1024,35 +1120,32 @@ function CertificateCarousel({
               e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
               e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
             }}
-            className="interactive-target group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#0f121d]/90 p-5 sm:p-6 backdrop-blur-xl text-left transition-all duration-300 hover:border-cyan-400/60 hover:bg-[#131726]/95 hover:shadow-[0_12px_36px_rgba(6,182,212,0.25)] hover:scale-[1.02] cursor-pointer w-[280px] sm:w-[320px] min-h-[200px] shrink-0"
+            className="interactive-target group relative overflow-hidden rounded-2xl border border-white/15 bg-[#0f121d]/90 p-2 sm:p-2.5 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/60 hover:bg-[#131726]/95 hover:shadow-[0_12px_36px_rgba(6,182,212,0.3)] hover:scale-[1.02] cursor-pointer w-[300px] sm:w-[340px] h-[215px] sm:h-[245px] shrink-0 flex items-center justify-center"
           >
             {/* Interactive Spotlight */}
             <div
               className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0"
               style={{
                 background:
-                  "radial-gradient(320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.15), transparent 70%)",
+                  "radial-gradient(320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.18), transparent 70%)",
               }}
             />
 
-            <div className="relative z-10">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 transition-transform duration-300 group-hover:scale-110">
-                  <Award size={20} />
+            {/* Certificate Image ONLY (No text, no Credential label, no View link underneath) */}
+            <div className="relative h-full w-full overflow-hidden rounded-xl bg-black/40 flex items-center justify-center">
+              {cert.image ? (
+                <CertificateMedia
+                  src={cert.image}
+                  alt={cert.name}
+                  className="h-full w-full object-contain object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center text-cyan-300 gap-1.5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                    <Award size={24} />
+                  </div>
                 </div>
-              </div>
-
-              <h3 className="mt-4 text-base font-bold text-white leading-snug group-hover:text-cyan-300 transition-colors">
-                {cert.name}
-              </h3>
-              <p className="mt-1 text-xs font-semibold text-[#e8aa42]">{cert.org}</p>
-            </div>
-
-            <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
-              <span className="text-white/40 font-mono text-[11px]">Credential</span>
-              <span className="flex items-center gap-1 font-mono text-[11.5px] font-semibold text-cyan-400 group-hover:underline">
-                View <ExternalLink size={11} />
-              </span>
+              )}
             </div>
           </div>
         ))}
@@ -1166,22 +1259,22 @@ export function SafariApp() {
             opacity: 0.4;
           }
         }
-        @keyframes nameAmbientGlow {
+        @keyframes purpleGlowPulse {
           0%, 100% {
-            opacity: 0.5;
+            opacity: 0.35;
             transform: scale(0.98);
           }
           50% {
-            opacity: 0.85;
-            transform: scale(1.05);
+            opacity: 0.6;
+            transform: scale(1.03);
           }
         }
-        @keyframes namePulseGlow {
+        @keyframes purpleTextPulse {
           0%, 100% {
-            filter: drop-shadow(0 0 25px rgba(232, 170, 66, 0.75));
+            filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.45)) drop-shadow(0 0 22px rgba(168, 85, 247, 0.22));
           }
           50% {
-            filter: drop-shadow(0 0 42px rgba(232, 170, 66, 0.95));
+            filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.6)) drop-shadow(0 0 30px rgba(168, 85, 247, 0.35));
           }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -1240,159 +1333,49 @@ export function SafariApp() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className={`relative z-10 mx-auto w-full max-w-[1240px] ${isWide
-              ? "px-4 sm:px-6 lg:px-8 pt-10 pb-24 space-y-20"
+              ? "px-4 sm:px-6 lg:px-8 pt-12 pb-24 space-y-20"
               : isMedium
-                ? "px-3.5 sm:px-5 pt-8 pb-16 space-y-16"
-                : "px-3 pt-6 pb-12 space-y-12"
+                ? "px-3.5 sm:px-5 pt-10 pb-16 space-y-16"
+                : "px-3 pt-8 pb-12 space-y-12"
             }`}
         >
-          {/* Section 1: Hero & Introduction */}
-          <div>
-            {/* Top Status Badge */}
-            <div className="mb-6 flex justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-400 backdrop-blur-md shadow-[0_0_14px_rgba(52,211,153,0.18)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Available for Software Engineering Roles
-              </span>
-            </div>
+          {/* About Section: Minimal Premium Design with Soft Purple Glow */}
+          <Reveal root={scrollRef} className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center pt-20 pb-20 sm:pt-28 sm:pb-28">
+            <div className="relative flex flex-col items-center justify-center select-none w-full">
+              {/* Soft Ambient Purple Radial Glow Behind Name */}
+              <span className="pointer-events-none absolute -inset-8 sm:-inset-16 rounded-full bg-gradient-to-r from-purple-600/18 via-fuchsia-500/14 to-indigo-600/18 blur-3xl -z-10 animate-[purpleGlowPulse_5s_ease-in-out_infinite]" />
 
-            {/* Hero Main Column: Center-aligned */}
-            <div className="mx-auto flex max-w-3xl flex-col items-center text-center space-y-6">
-              <div>
-                <span className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#e8aa42]">
-                  Full-Stack & AI Engineer
-                </span>
-                <div className="relative mt-2 inline-block">
-                  <span className="pointer-events-none absolute -inset-4 rounded-full bg-gradient-to-r from-[#e8aa42]/30 via-[#38bdf8]/30 to-[#e8aa42]/30 blur-2xl -z-10 animate-[nameAmbientGlow_6s_ease-in-out_infinite]" />
-                  <h1 className="font-display font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl leading-tight text-white drop-shadow-[0_0_35px_rgba(232,170,66,0.85)] filter animate-[namePulseGlow_5s_ease-in-out_infinite]">
-                    Muskan Kumari
-                  </h1>
-                </div>
-                <p className="mt-2 font-mono text-xs sm:text-sm font-medium tracking-wide text-emerald-400">
-                  Software Engineer / Full-Stack Developer
-                </p>
-              </div>
-
-              <p className="text-[14.5px] sm:text-[15.5px] leading-relaxed text-white/80 max-w-2xl mx-auto font-sans text-center">
-                AI-focused Software Engineer with hands-on experience building LLM-powered
-                applications, AI agents, and backend systems using Python, JavaScript, and Gemini
-                APIs. Strong foundation in software engineering, frontend styling, and databases.
-              </p>
-
-              {/* Technical Specialty Matrix with Interactive Spotlight */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-2xl mx-auto rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center text-xs backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-                <div className="transition-transform duration-200 hover:-translate-y-0.5">
-                  <h4 className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#e8aa42]/90">
-                    Frontend
-                  </h4>
-                  <p className="mt-1 text-white/80 font-sans text-[11.5px]">React • JS • HTML • CSS • Tailwind</p>
-                </div>
-                <div className="transition-transform duration-200 hover:-translate-y-0.5">
-                  <h4 className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#e8aa42]/90">
-                    Backend
-                  </h4>
-                  <p className="mt-1 text-white/80 font-sans text-[11.5px]">Node.js • Express.js • REST APIs</p>
-                </div>
-                <div className="transition-transform duration-200 hover:-translate-y-0.5">
-                  <h4 className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#e8aa42]/90">
-                    Database
-                  </h4>
-                  <p className="mt-1 text-white/80 font-sans text-[11.5px]">MongoDB • SQL • PostgreSQL</p>
-                </div>
-                <div className="transition-transform duration-200 hover:-translate-y-0.5">
-                  <h4 className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#e8aa42]/90">
-                    AI / Design
-                  </h4>
-                  <p className="mt-1 text-white/80 font-sans text-[11.5px]">LLMs • Gemini API • Prompt Eng.</p>
-                </div>
-              </div>
-
-              {/* CTA Action Buttons with Smooth Hover Lift & Active Feedback */}
-              <div className="flex flex-wrap items-center justify-center gap-3 pt-1 w-full">
-                <a
-                  href={`mailto:${site.email}`}
-                  className="interactive-target inline-flex items-center gap-1.5 rounded-full bg-[#e8aa42] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#101013] shadow-[0_4px_16px_rgba(232,170,66,0.35)] hover:bg-[#f3bc5c] hover:-translate-y-0.5 transition-all active:scale-95"
-                >
-                  <Mail size={14} />
-                  Get in Touch
-                </a>
-                <a
-                  href={site.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="interactive-target inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/[0.04] px-5 py-2.5 text-xs sm:text-sm font-medium text-white/90 hover:border-white/40 hover:bg-white/[0.08] hover:-translate-y-0.5 transition-all active:scale-95"
-                >
-                  <Github size={14} />
-                  GitHub
-                </a>
-                <a
-                  href={site.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="interactive-target inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/[0.04] px-5 py-2.5 text-xs sm:text-sm font-medium text-white/90 hover:border-white/40 hover:bg-white/[0.08] hover:-translate-y-0.5 transition-all active:scale-95"
-                >
-                  <Linkedin size={14} />
-                  LinkedIn
-                </a>
-              </div>
-
-              {/* Contact Metadata */}
-              <div className="flex flex-wrap items-center justify-center gap-6 border-t border-white/10 pt-4 text-xs text-white/60 w-full">
-                <span className="flex items-center gap-1.5">
-                  <MapPin size={13} className="text-[#5aa7f2]" />
-                  {site.location}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Phone size={13} className="text-emerald-400" />
-                  {site.phone}
-                </span>
-              </div>
-            </div>
-
-            {/* Quick Highlight Stats with Staggered Entrance */}
-            <div
-              className={`mt-10 grid gap-3.5 max-w-3xl mx-auto ${containerWidth >= 680 ? "grid-cols-3" : "grid-cols-1"
-                }`}
-            >
-              {about.stats.map((stat, index) => (
-                <Reveal key={stat} root={scrollRef} delay={index * 0.05}>
-                  <div className="interactive-target flex h-full items-center justify-center text-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-[13px] leading-snug text-white/85 backdrop-blur-sm transition-all duration-200 hover:border-[#e8aa42]/40 hover:bg-white/[0.06] hover:-translate-y-0.5">
-                    <Sparkles size={16} className="shrink-0 text-[#e8aa42]" />
-                    <span>{stat}</span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Section 2: About (Center-aligned with Staggered Reveal) */}
-          <Reveal root={scrollRef} className="max-w-4xl mx-auto text-center space-y-6">
-            <SectionHeading subtitle=" PASSION" icon={Sparkles}>
-              About
-            </SectionHeading>
-            <div
-              onPointerMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-              }}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-center transition-all duration-300 hover:border-white/20 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
-            >
-              {/* Interactive Spotlight on About Card */}
-              <div
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0"
+              {/* 1. Complete Name in ALL CAPS Modern Display Font with Soft Purple Glow */}
+              <h1
+                className="whitespace-nowrap font-display font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.14em] text-white text-[clamp(32px,5.8vw,76px)] leading-tight text-center cursor-default py-2 select-none animate-[purpleTextPulse_5s_ease-in-out_infinite]"
                 style={{
-                  background:
-                    "radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(232, 170, 66, 0.08), transparent 70%)",
+                  textShadow:
+                    "0 0 10px rgba(192, 132, 252, 0.65), 0 0 20px rgba(168, 85, 247, 0.45), 0 0 35px rgba(147, 51, 234, 0.25)",
                 }}
-              />
-              <p className="relative z-10 text-[14.5px] sm:text-[16.5px] leading-relaxed text-white/85 font-sans text-center">
-                {about.paragraph}
+              >
+                MUSKAN KUMARI
+              </h1>
+
+              {/* 2. Directly Below Name: Software Engineer */}
+              <p className="mt-4 sm:mt-5 text-sm sm:text-lg md:text-xl font-mono font-medium uppercase tracking-[0.22em] text-purple-300/85 drop-shadow-[0_0_10px_rgba(192,132,252,0.35)]">
+                Software Engineer
               </p>
+
+              {/* 3. Resume Button */}
+              <a
+                href="/resume/Muskan_Kumari_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="interactive-target mt-8 sm:mt-11 inline-flex items-center gap-2 rounded-full border border-purple-400/35 bg-purple-500/10 px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.2)] backdrop-blur-md transition-all duration-300 hover:border-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_28px_rgba(168,85,247,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+              >
+                <FileText size={17} className="text-purple-300" />
+                <span>Resume</span>
+                <ExternalLink size={14} className="text-purple-300/80" />
+              </a>
             </div>
           </Reveal>
 
-          {/* Section 3: Skills (Pure Purple Sequential Border-Glow with Staggered Cascade) */}
+          {/* Section 2: Skills (Pure Purple Sequential Border-Glow with Staggered Cascade) */}
           <div className="w-full space-y-12 max-w-6xl mx-auto">
             <Reveal root={scrollRef}>
               <SectionHeading subtitle="TECHNICAL ARSENAL" icon={Sparkles}>
@@ -1449,12 +1432,12 @@ export function SafariApp() {
             </Reveal>
 
             <div
-              className={`mt-2 grid gap-7 lg:gap-8 justify-center ${containerWidth >= 880
+              className={`mt-2 grid gap-5 lg:gap-6 justify-center ${containerWidth >= 960
                   ? "grid-cols-3"
-                  : containerWidth >= 580
+                  : containerWidth >= 620
                     ? "grid-cols-2"
                     : "grid-cols-1"
-                } max-w-6xl mx-auto`}
+                } max-w-5xl mx-auto`}
             >
               {defaultProjects
                 .filter((p) => p.featured)
@@ -1576,8 +1559,8 @@ export function SafariApp() {
             </div>
           </div>
 
-          {/* Section 7: Certificates (Continuous Infinite Right-to-Left Scrolling Carousel) */}
-          <div className="w-full max-w-7xl mx-auto overflow-hidden">
+          {/* Section 7: Certificates (Continuous Infinite Scrolling Carousel) */}
+          <div className="w-full max-w-7xl mx-auto overflow-hidden pb-4 sm:pb-8">
             <Reveal root={scrollRef}>
               <SectionHeading
                 subtitle={`${certificates.length} CREDENTIALS & CERTIFICATIONS`}
@@ -1592,7 +1575,81 @@ export function SafariApp() {
             </Reveal>
           </div>
 
-          {/* Section 8: Footer (Center-aligned) */}
+          {/* Section 8: Contact Section (Comfortable 50px-80px vertical gap after Certificates) */}
+          <div className="w-full max-w-3xl mx-auto pt-6 sm:pt-10 pb-8 sm:pb-12">
+            <Reveal root={scrollRef}>
+              <SectionHeading subtitle="LET'S CONNECT" icon={Mail}>
+                Get In Touch
+              </SectionHeading>
+            </Reveal>
+
+            <Reveal root={scrollRef} delay={0.06}>
+              <div
+                onPointerMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 backdrop-blur-sm shadow-xl text-center transition-all duration-300 hover:border-[#e8aa42]/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+              >
+                {/* Interactive Spotlight on Contact Card */}
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0"
+                  style={{
+                    background:
+                      "radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(232, 170, 66, 0.08), transparent 70%)",
+                  }}
+                />
+
+                <p className="relative z-10 text-[14px] sm:text-[15.5px] leading-relaxed text-white/80 max-w-xl mx-auto font-sans">
+                  Have an opportunity, questions about my projects, or want to collaborate? I'm always open to discussing new engineering roles and impactful software solutions.
+                </p>
+
+                {/* Contact Links Grid */}
+                <div className="relative z-10 mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="interactive-target inline-flex items-center gap-2 rounded-xl border border-[#e8aa42]/40 bg-[#e8aa42]/10 px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#e8aa42] shadow-[0_0_15px_rgba(232,170,66,0.15)] transition-all duration-200 hover:border-[#e8aa42] hover:bg-[#e8aa42]/20 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                  >
+                    <Mail size={15} />
+                    <span>Email</span>
+                  </a>
+
+                  <a
+                    href={site.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-target inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-5 py-2.5 text-xs sm:text-sm font-semibold text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-500/20 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                  >
+                    <Linkedin size={15} />
+                    <span>LinkedIn</span>
+                  </a>
+
+                  <a
+                    href={site.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-target inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white/90 shadow-[0_0_15px_rgba(255,255,255,0.05)] transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                  >
+                    <Github size={15} />
+                    <span>GitHub</span>
+                  </a>
+
+                  <a
+                    href="/resume/Muskan_Kumari_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-target inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-5 py-2.5 text-xs sm:text-sm font-semibold text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.15)] transition-all duration-200 hover:border-emerald-400 hover:bg-emerald-500/20 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                  >
+                    <FileText size={15} />
+                    <span>Resume</span>
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Section 9: Footer (Center-aligned) */}
           <footer className="border-t border-white/10 pt-10 pb-6 text-center text-xs text-white/40 space-y-3">
             <p className="font-mono text-white/60">
               Designed & Engineered with React, TypeScript & Tailwind CSS
@@ -1641,21 +1698,31 @@ export function SafariApp() {
               </div>
 
               {/* Certificate Document Card Preview */}
-              <div className="my-6 relative overflow-hidden rounded-xl border border-[#e8aa42]/30 bg-gradient-to-br from-[#161a2e] via-[#0d101d] to-[#121422] p-6 sm:p-7 shadow-inner text-center">
+              <div className="my-5 relative overflow-hidden rounded-xl border border-[#e8aa42]/30 bg-gradient-to-br from-[#161a2e] via-[#0d101d] to-[#121422] p-4 sm:p-6 shadow-inner text-center">
                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-cyan-500/10 blur-3xl" />
                 <div className="pointer-events-none absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-[#e8aa42]/10 blur-3xl" />
+
+                {activeCert.image ? (
+                  <div className="relative w-full max-h-[360px] overflow-hidden rounded-lg bg-black/40 flex items-center justify-center p-2 mb-4 border border-white/10 shadow-lg">
+                    <CertificateMedia
+                      src={activeCert.image}
+                      alt={activeCert.name}
+                      className="max-h-[340px] w-full object-contain object-center rounded"
+                    />
+                  </div>
+                ) : null}
 
                 <span className="font-mono text-[10.5px] uppercase tracking-[0.25em] text-[#e8aa42]">
                   Certificate of Achievement
                 </span>
-                <h2 className="mt-2 text-lg sm:text-xl font-extrabold text-white tracking-tight">
+                <h2 className="mt-1 text-lg sm:text-xl font-extrabold text-white tracking-tight">
                   {activeCert.name}
                 </h2>
-                <p className="mt-1 text-xs sm:text-sm text-white/70">
+                <p className="mt-0.5 text-xs sm:text-sm text-white/70">
                   Awarded by <span className="font-semibold text-cyan-300">{activeCert.org}</span>
                 </p>
 
-                <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono text-left">
+                <div className="mt-4 pt-3 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono text-left">
                   <div className="rounded-lg border border-white/5 bg-white/[0.02] p-2.5">
                     <span className="text-white/40 block text-[10px]">Credential Identifier</span>
                     <span className="text-white/90 font-semibold">{activeCert.credentialId || "REC-892410"}</span>
