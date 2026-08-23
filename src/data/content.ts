@@ -92,19 +92,20 @@ export const navLinks: NavLink[] = [
 
 export const about: AboutContent = {
   paragraph:
-    "AI-focused Software Engineer with hands-on experience building LLM-powered applications, AI agents, and backend systems using Python, JavaScript, REST APIs, and Gemini APIs. Strong foundation in Data Structures & Algorithms, software engineering, and problem-solving. Passionate about AI automation, workflow orchestration, prompt engineering, backend integrations, and deploying scalable, production-ready AI solutions.",
+    "Motivated and aspiring Software Engineer with a strong foundation in C++, JavaScript, full-stack web development, databases, and problem-solving. Seeking opportunities to apply my technical skills, build scalable and user-friendly applications, continuously learn new technologies, and contribute to the growth of a dynamic organization.",
+
   stats: [
-    "Deployed 3+ production web apps",
+    "Deployed 3+ production web applications",
     "LLM API Integration & Prompt Engineering",
-    "Full-Stack Development (React, Node.js, MongoDB)",
+    "Full-Stack Development with React, Node.js & MongoDB",
   ],
 };
 
 export const experience: ExperienceItem[] = [
   {
     company: "Eimple Lab",
-    role: "Web Development Intern",
-    period: "11/2025 – 07/2026",
+    role: "Frontend Development Intern",
+    period: "2025 – 2026",
     bullets: [
       "Developed a full-stack web application using React.js and Tailwind CSS, creating a responsive and user-friendly interface for seamless navigation across devices",
       "Built backend services using Node.js and REST APIs, integrating PostgreSQL for structured and reliable data management",
@@ -117,7 +118,6 @@ export const projects: Project[] = [
   {
     title: "Gym Management System",
     tag: "Fitness Management Platform",
-    period: "2026",
     description:
       "A comprehensive full-stack gym management platform facilitating membership subscriptions, workout tracking, trainer schedules, and member analytics with an interactive dashboard.",
     tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
@@ -134,7 +134,6 @@ export const projects: Project[] = [
   {
     title: "CivicFix",
     tag: "Civic Issue Reporting Platform",
-    period: "2026",
     description:
       "A full-stack civic issue reporting platform that enables users to report local problems, track complaint resolution in real-time, and streamline transparent communication with authorities.",
     tech: ["React.js", "Node.js", "Express.js", "MongoDB", "REST API", "JWT"],
@@ -149,11 +148,10 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "AI Report Analyzer",
-    tag: "AI-Powered Report Analysis App",
-    period: "2026",
+    title: "Report Analyzer",
+    tag: "Report Analysis Platform",
     description:
-      "An AI-powered document analysis application built with Streamlit and Gemini API that parses uploaded reports, summarizes key findings, and extracts structured insights automatically.",
+      "A document analysis application built with Streamlit and Gemini API that parses uploaded reports, summarizes key findings, and extracts structured insights automatically.",
     tech: ["Python", "Streamlit", "Gemini API", "AI/LLM", "Document Parsing"],
     featured: true,
     link: "https://ai-disease-detector.streamlit.app/",
@@ -161,7 +159,7 @@ export const projects: Project[] = [
       {
         type: "image",
         src: "/projects/report_analyzer.webp",
-        alt: "AI-Powered Report Analysis Dashboard",
+        alt: "Report Analysis Dashboard",
       },
     ],
   },
