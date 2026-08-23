@@ -1340,14 +1340,14 @@ export function SafariApp() {
             }`}
         >
           {/* About Section: Minimal Premium Design with Soft Purple Glow */}
-          <Reveal root={scrollRef} className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center pt-20 pb-20 sm:pt-28 sm:pb-28">
+          <Reveal root={scrollRef} className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center pt-24 pb-20 sm:pt-36 sm:pb-28">
             <div className="relative flex flex-col items-center justify-center select-none w-full">
               {/* Soft Ambient Purple Radial Glow Behind Name */}
               <span className="pointer-events-none absolute -inset-8 sm:-inset-16 rounded-full bg-gradient-to-r from-purple-600/18 via-fuchsia-500/14 to-indigo-600/18 blur-3xl -z-10 animate-[purpleGlowPulse_5s_ease-in-out_infinite]" />
 
               {/* 1. Complete Name in ALL CAPS Modern Display Font with Soft Purple Glow */}
               <h1
-                className="whitespace-nowrap font-display font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.14em] text-white text-[clamp(32px,5.8vw,76px)] leading-tight text-center cursor-default py-2 select-none animate-[purpleTextPulse_5s_ease-in-out_infinite]"
+                className="whitespace-nowrap font-display font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.14em] text-white text-[clamp(32px,5.8vw,76px)] leading-tight text-center cursor-default pt-3 pb-2 select-none animate-[purpleTextPulse_5s_ease-in-out_infinite]"
                 style={{
                   textShadow:
                     "0 0 10px rgba(192, 132, 252, 0.65), 0 0 20px rgba(168, 85, 247, 0.45), 0 0 35px rgba(147, 51, 234, 0.25)",
@@ -1356,8 +1356,8 @@ export function SafariApp() {
                 MUSKAN KUMARI
               </h1>
 
-              {/* 2. Directly Below Name: Software Engineer */}
-              <p className="mt-4 sm:mt-5 text-sm sm:text-lg md:text-xl font-mono font-medium uppercase tracking-[0.22em] text-purple-300/85 drop-shadow-[0_0_10px_rgba(192,132,252,0.35)]">
+              {/* 2. Directly Below Name: Software Engineer (Golden color matching Technical Arsenal) */}
+              <p className="mt-4 sm:mt-5 mb-3 sm:mb-4 font-mono text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.22em] text-[#e8aa42] drop-shadow-[0_0_12px_rgba(232,170,66,0.35)]">
                 Software Engineer
               </p>
 
@@ -1366,7 +1366,7 @@ export function SafariApp() {
                 href="/resume/Muskan_Kumari_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="interactive-target mt-8 sm:mt-11 inline-flex items-center gap-2 rounded-full border border-purple-400/35 bg-purple-500/10 px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.2)] backdrop-blur-md transition-all duration-300 hover:border-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_28px_rgba(168,85,247,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                className="interactive-target mt-6 sm:mt-8 inline-flex items-center gap-2 rounded-full border border-purple-400/35 bg-purple-500/10 px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.2)] backdrop-blur-md transition-all duration-300 hover:border-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_28px_rgba(168,85,247,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <FileText size={17} className="text-purple-300" />
                 <span>Resume</span>
