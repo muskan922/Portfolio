@@ -110,12 +110,6 @@ const GRID_LINKS: LinkSpec[] = [
   },
   { id: "github", label: "GitHub", icon: <GithubIcon />, href: site.github },
   { id: "linkedin", label: "LinkedIn", icon: <LinkedinIcon />, href: site.linkedin },
-  {
-    id: "linkedin2",
-    label: "LinkedIn 2",
-    icon: <LinkedinIcon />,
-    href: site.linkedin,
-  },
 ];
 
 type DockEntry = { id: string; label: string; icon: ReactNode } & (

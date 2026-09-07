@@ -25,7 +25,7 @@ function ClockWidget() {
   return (
     <div className={`${glass} w-44 p-4`}>
       <p className="text-[11px] font-medium uppercase tracking-wider text-white/45">
-        Amman, Jordan
+        Jharkhand, India
       </p>
       <p className="mt-1 font-display text-4xl font-semibold tabular-nums text-white">
         {time}
@@ -63,7 +63,7 @@ function StatusWidget() {
       </p>
       <p className="flex items-center gap-2 text-white/80">
         <Rocket size={13} className="shrink-0 text-[#34d058]" />
-        10+ apps in production
+        3+ apps in production
       </p>
     </div>
   );

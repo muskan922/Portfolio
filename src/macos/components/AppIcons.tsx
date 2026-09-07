@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 interface IconProps {
   className?: string;
 }
@@ -85,23 +87,26 @@ export function XIcon({ className = "" }: IconProps) {
 }
 
 export function FolderGlyph({ className = "" }: IconProps) {
+  const uid = useId().replace(/:/g, "");
+  const topId = `folder-top-${uid}`;
+  const bodyId = `folder-body-${uid}`;
   return (
     <svg viewBox="0 0 64 52" className={className}>
       <defs>
-        <linearGradient id="folder-top" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#7cc1f7" />
-          <stop offset="1" stopColor="#52a7ef" />
+        <linearGradient id={topId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#7cc1f7" />
+          <stop offset="100%" stopColor="#52a7ef" />
         </linearGradient>
-        <linearGradient id="folder-body" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#66b5f4" />
-          <stop offset="1" stopColor="#2f8be2" />
+        <linearGradient id={bodyId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#66b5f4" />
+          <stop offset="100%" stopColor="#2f8be2" />
         </linearGradient>
       </defs>
       <path
         d="M4 8a4 4 0 0 1 4-4h15.5a4 4 0 0 1 2.9 1.2L30 9h26a4 4 0 0 1 4 4v3H4V8z"
-        fill="url(#folder-top)"
+        fill={`url(#${topId})`}
       />
-      <rect x="4" y="12" width="56" height="36" rx="4" fill="url(#folder-body)" />
+      <rect x="4" y="12" width="56" height="36" rx="4" fill={`url(#${bodyId})`} />
     </svg>
   );
 }

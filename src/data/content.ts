@@ -107,7 +107,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Eimple Lab",
     role: "Web Development Internship",
-    period: "November, 2025 – July, 2026",
+    period: "july, 2025 – July, 2026",
     bullets: [
       "Developed a full-stack web application using React.js and Tailwind CSS, creating a responsive and user-friendly interface for seamless navigation across devices.",
       "Built backend services using Node.js and REST APIs, integrating PostgreSQL for structured and reliable data management.",
@@ -165,23 +165,23 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    title: "WebTech-Lab",
-    tag: "Web Technology Laboratory Exercises",
-    period: "2025",
-    description:
-      "A collection of web technology laboratory exercises and experiments demonstrating front-end design principles, DOM manipulation, responsive layouts, and interactive features.",
-    tech: ["HTML", "CSS", "JavaScript", "Responsive Design", "DOM Manipulation"],
-    featured: false,
-    link: "https://github.com/muskan922",
-    media: [
-      {
-        type: "image",
-        src: "/projects/webtech_lab.webp",
-        alt: "Web Technology Lab Editor Workstation",
-      },
-    ],
-  },
+  // {
+  //   title: "WebTech-Lab",
+  //   tag: "Web Technology Laboratory Exercises",
+  //   period: "2025",
+  //   description:
+  //     "A collection of web technology laboratory exercises and experiments demonstrating front-end design principles, DOM manipulation, responsive layouts, and interactive features.",
+  //   tech: ["HTML", "CSS", "JavaScript", "Responsive Design", "DOM Manipulation"],
+  //   featured: false,
+  //   link: "https://github.com/muskan922",
+  //   media: [
+  //     {
+  //       type: "image",
+  //       src: "/projects/webtech_lab.webp",
+  //       alt: "Web Technology Lab Editor Workstation",
+  //     },
+  //   ],
+  // },
 ];
 
 export const projectsNote = "+3 production web apps deployed.";

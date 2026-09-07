@@ -103,15 +103,15 @@ export function MiaApp({ actions }: MiaAppProps) {
     }
 
     // 7. WebTech-Lab Specific
-    if (q.includes("webtech") || q.includes("lab")) {
-      const p = projects.find((p) => p.title === "WebTech-Lab");
-      return {
-        text: p ? `${p.title} (${p.tag}): ${p.description}` : "WebTech-Lab is a collection of core web experiments covering front-end design, responsive layout, and interactive features.",
-        actions: [
-          { label: "Explore WebTech Lab Files", onClick: () => actions.openApp("finder", { initialSection: "projects" }) },
-        ],
-      };
-    }
+    // if (q.includes("webtech") || q.includes("lab")) {
+    //   const p = projects.find((p) => p.title === "WebTech-Lab");
+    //   return {
+    //     text: p ? `${p.title} (${p.tag}): ${p.description}` : "WebTech-Lab is a collection of core web experiments covering front-end design, responsive layout, and interactive features.",
+    //     actions: [
+    //       { label: "Explore WebTech Lab Files", onClick: () => actions.openApp("finder", { initialSection: "projects" }) },
+    //     ],
+    //   };
+    // }
 
     // 8. Experience
     if (q.includes("experience") || q.includes("intern") || q.includes("job") || q.includes("work history") || q.includes("eimple")) {
@@ -196,9 +196,8 @@ export function MiaApp({ actions }: MiaAppProps) {
             sfx.click();
             setRecruiterMode((prev) => !prev);
           }}
-          className={`px-2 py-0.5 rounded text-[10px] font-mono tracking-wider transition-colors ${
-            recruiterMode ? "bg-emerald-500 text-black font-semibold" : "bg-white/10 text-white/70 hover:bg-white/15"
-          }`}
+          className={`px-2 py-0.5 rounded text-[10px] font-mono tracking-wider transition-colors ${recruiterMode ? "bg-emerald-500 text-black font-semibold" : "bg-white/10 text-white/70 hover:bg-white/15"
+            }`}
         >
           RECRUITER MODE: {recruiterMode ? "ACTIVE" : "OFF"}
         </button>
@@ -212,11 +211,10 @@ export function MiaApp({ actions }: MiaAppProps) {
               {msg.sender === "user" ? "USER" : "MIA.SYS"}
             </span>
             <div
-              className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line shadow ${
-                msg.sender === "user"
+              className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line shadow ${msg.sender === "user"
                   ? "bg-[#2a7de1] text-white rounded-tr-none"
                   : "bg-neutral-900 border border-white/5 text-white/90 rounded-tl-none font-mono"
-              }`}
+                }`}
             >
               {msg.text}
               {msg.actions && msg.actions.length > 0 && (
