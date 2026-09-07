@@ -205,6 +205,8 @@ function SkillsPane() {
 function CertificateAndAchievementPane() {
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
 
+  const activeCert = certificates.find((c) => c.name === selectedCert);
+
   return (
     <div className="p-5 overflow-y-auto h-full">
       <h3 className="mb-4 text-xs font-mono uppercase tracking-widest text-white/40">Certifications & Achievements</h3>
@@ -215,6 +217,10 @@ function CertificateAndAchievementPane() {
             key={cert.name}
             type="button"
             onClick={() => setSelectedCert(cert.name)}
+            onDoubleClick={() => {
+              sfx.open();
+              window.open(cert.image, "_blank");
+            }}
             className={`group flex flex-col items-center gap-1.5 rounded-lg p-2.5 transition-all text-center ${
               selectedCert === cert.name ? "bg-white/15" : "hover:bg-white/10"
             }`}
@@ -230,20 +236,37 @@ function CertificateAndAchievementPane() {
         ))}
       </div>
 
-      {selectedCert && (
-        <div className="mt-8 border border-emerald-500/30 rounded-xl bg-emerald-500/5 p-4 flex items-center justify-between font-mono text-xs">
+      {activeCert && (
+        <div className="mt-8 border border-emerald-500/30 rounded-xl bg-emerald-500/5 p-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
           <div>
             <p className="text-emerald-400 font-semibold uppercase tracking-wider mb-1">✓ Certificate Selected</p>
-            <p className="text-white/85 font-sans font-medium">{selectedCert}</p>
+            <p className="text-white/85 font-sans font-medium">{activeCert.name}</p>
+            <p className="text-white/50 text-[11px] mt-0.5">{activeCert.org} • Credential ID: {activeCert.credentialId}</p>
           </div>
-          <button
-            onClick={() => setSelectedCert(null)}
-            className="text-white/40 hover:text-white"
-          >
-            Close
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                sfx.open();
+                window.open(activeCert.image, "_blank");
+              }}
+              className="rounded-lg bg-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/30 transition-colors flex items-center gap-1.5"
+            >
+              <span>Open PDF / Document</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedCert(null)}
+              className="text-white/40 hover:text-white px-2 py-1.5 text-xs"
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
+      <p className="mt-8 text-xs text-white/40 italic">
+        Double-click any certificate icon to open its PDF document in a new tab.
+      </p>
     </div>
   );
 }
