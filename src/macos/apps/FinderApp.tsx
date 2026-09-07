@@ -1,14 +1,16 @@
 import {
   Award,
+  Briefcase,
   ChevronLeft,
   ChevronRight,
+  FileText,
   FolderOpen,
+  GraduationCap,
+  Mail,
   Monitor,
   Search,
-  Wrench,
-  FileText,
   User,
-  Mail,
+  Wrench,
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -18,44 +20,58 @@ import {
   projects,
   skillGroups,
 } from "../../data/content";
-import { FolderGlyph, TextFileGlyph, PdfGlyph } from "../components/AppIcons";
-import { fs, useFs, type FsNode } from "../lib/fs";
+import { FolderGlyph, PdfGlyph, TextFileGlyph } from "../components/AppIcons";
+import { fs, type FsNode, useFs } from "../lib/fs";
 import { sfx } from "../lib/sfx";
+import { AboutApp } from "./AboutApp";
+import { ContactApp } from "./ContactApp";
+import { PreviewApp } from "./PreviewApp";
 
-export type FinderSection = "my-portfolio" | "projects" | "experience" | "skills" | "education" | "certificates-achievements";
+export type FinderSection =
+  | "my-portfolio"
+  | "about"
+  | "experience"
+  | "skills"
+  | "projects"
+  | "education"
+  | "certificates-achievements"
+  | "resume"
+  | "contact";
 
 interface SidebarItem {
-  id: FinderSection | "about-app" | "resume-app" | "contact-app";
+  id: FinderSection;
   label: string;
   icon: any;
-  isApp?: boolean;
 }
 
 const SIDEBAR: SidebarItem[] = [
   { id: "my-portfolio", label: "MY PORTFOLIO", icon: FolderOpen },
-  { id: "about-app", label: "ABOUT", icon: User, isApp: true },
+  { id: "about", label: "ABOUT", icon: User },
+  { id: "experience", label: "EXPERIENCE", icon: Briefcase },
   { id: "skills", label: "SKILLS", icon: Wrench },
   { id: "projects", label: "PROJECTS", icon: FolderOpen },
+  { id: "education", label: "EDUCATION", icon: GraduationCap },
   { id: "certificates-achievements", label: "CERTIFICATE & ACHIEVEMENT", icon: Award },
-  { id: "resume-app", label: "RESUME", icon: FileText, isApp: true },
-  { id: "contact-app", label: "CONTACT", icon: Mail, isApp: true },
+  { id: "resume", label: "RESUME", icon: FileText },
+  { id: "contact", label: "CONTACT", icon: Mail },
 ];
 
 // --- 1. My Portfolio Directory View ---
 function MyPortfolioPane({
   onNavigate,
-  onOpenApp,
 }: {
   onNavigate: (section: FinderSection) => void;
   onOpenApp?: (app: any, payload?: any) => void;
 }) {
-  const items = [
-    { name: "ABOUT", type: "folder", action: () => onOpenApp?.("about") },
+  const items: { name: string; type: "folder" | "pdf" | "app"; action: () => void }[] = [
+    { name: "ABOUT", type: "folder", action: () => onNavigate("about") },
+    { name: "EXPERIENCE", type: "folder", action: () => onNavigate("experience") },
     { name: "SKILLS", type: "folder", action: () => onNavigate("skills") },
     { name: "PROJECTS", type: "folder", action: () => onNavigate("projects") },
+    { name: "EDUCATION", type: "folder", action: () => onNavigate("education") },
     { name: "CERTIFICATE & ACHIEVEMENT", type: "folder", action: () => onNavigate("certificates-achievements") },
-    { name: "RESUME", type: "pdf", action: () => onOpenApp?.("preview") },
-    { name: "CONTACT", type: "app", action: () => onOpenApp?.("contact") },
+    { name: "RESUME", type: "pdf", action: () => onNavigate("resume") },
+    { name: "CONTACT", type: "app", action: () => onNavigate("contact") },
   ];
 
   const [selected, setSelected] = useState<string | null>(null);
@@ -405,13 +421,7 @@ export function FinderApp({
 
   const handleSidebarClick = (item: SidebarItem) => {
     sfx.click();
-    if (item.isApp) {
-      if (item.id === "about-app") onOpenApp?.("about");
-      if (item.id === "resume-app") onOpenApp?.("preview");
-      if (item.id === "contact-app") onOpenApp?.("contact");
-    } else {
-      setView(item.id as FinderSection);
-    }
+    setView(item.id);
   };
 
   return (
@@ -487,11 +497,14 @@ export function FinderApp({
             <FsPane folderId={folderId} onNavigate={setFolderId} onOpenFile={onOpenFile} />
           )}
           {section === "my-portfolio" && <MyPortfolioPane onNavigate={setView} onOpenApp={onOpenApp} />}
-          {section === "projects" && <ProjectsPane onOpenApp={onOpenApp} />}
-          {section === "skills" && <SkillsPane />}
-          {section === "certificates-achievements" && <CertificateAndAchievementPane />}
+          {section === "about" && <AboutApp />}
           {section === "experience" && <ExperiencePane />}
+          {section === "skills" && <SkillsPane />}
+          {section === "projects" && <ProjectsPane onOpenApp={onOpenApp} />}
           {section === "education" && <EducationPane />}
+          {section === "certificates-achievements" && <CertificateAndAchievementPane />}
+          {section === "resume" && <PreviewApp />}
+          {section === "contact" && <ContactApp />}
         </div>
 
         {/* Desktop pane render */}
@@ -501,11 +514,14 @@ export function FinderApp({
           ) : (
             <div className="h-full">
               {section === "my-portfolio" && <MyPortfolioPane onNavigate={setView} onOpenApp={onOpenApp} />}
-              {section === "projects" && <ProjectsPane onOpenApp={onOpenApp} />}
-              {section === "skills" && <SkillsPane />}
-              {section === "certificates-achievements" && <CertificateAndAchievementPane />}
+              {section === "about" && <AboutApp />}
               {section === "experience" && <ExperiencePane />}
+              {section === "skills" && <SkillsPane />}
+              {section === "projects" && <ProjectsPane onOpenApp={onOpenApp} />}
               {section === "education" && <EducationPane />}
+              {section === "certificates-achievements" && <CertificateAndAchievementPane />}
+              {section === "resume" && <PreviewApp />}
+              {section === "contact" && <ContactApp />}
             </div>
           )}
         </div>
