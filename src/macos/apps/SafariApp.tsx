@@ -1158,6 +1158,11 @@ export function SafariApp() {
   const safariContainerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const projectsSectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToProjects = () => {
+    projectsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Track normalized pointer movement for background parallax
   const handleContainerPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -1361,17 +1366,28 @@ export function SafariApp() {
                 Software Engineer
               </p>
 
-              {/* 3. Resume Button */}
-              <a
-                href="/resume/Muskan_Kumari_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="interactive-target mt-6 sm:mt-8 inline-flex items-center gap-2 rounded-full border border-purple-400/35 bg-purple-500/10 px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.2)] backdrop-blur-md transition-all duration-300 hover:border-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_28px_rgba(168,85,247,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-              >
-                <FileText size={17} className="text-purple-300" />
-                <span>Resume</span>
-                <ExternalLink size={14} className="text-purple-300/80" />
-              </a>
+              {/* 3. Action Buttons: Resume & Explore My Work */}
+              <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+                <a
+                  href="/resume/Muskan_Kumari_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="interactive-target inline-flex items-center gap-2 rounded-full border border-purple-400/35 bg-purple-500/10 px-7 py-3 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(168,85,247,0.2)] backdrop-blur-md transition-all duration-300 hover:border-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_28px_rgba(168,85,247,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                >
+                  <FileText size={17} className="text-purple-300" />
+                  <span>Resume</span>
+                  <ExternalLink size={14} className="text-purple-300/80" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={scrollToProjects}
+                  className="interactive-target inline-flex items-center gap-2 rounded-full border border-[#e8aa42]/40 bg-[#e8aa42]/10 px-7 py-3 text-sm sm:text-base font-semibold text-white shadow-[0_0_20px_rgba(232,170,66,0.2)] backdrop-blur-md transition-all duration-300 hover:border-[#e8aa42] hover:bg-[#e8aa42]/20 hover:shadow-[0_0_28px_rgba(232,170,66,0.35)] hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                >
+                  <Code2 size={17} className="text-[#e8aa42]" />
+                  <span>Explore My Work</span>
+                </button>
+              </div>
             </div>
           </Reveal>
 
@@ -1424,7 +1440,7 @@ export function SafariApp() {
           </div>
 
           {/* Section 4: Projects (Hover 3D Flip Cards) */}
-          <div className="w-full max-w-6xl mx-auto">
+          <div ref={projectsSectionRef} className="w-full max-w-6xl mx-auto">
             <Reveal root={scrollRef}>
               <SectionHeading subtitle="FEATURED SYSTEMS" icon={Code2}>
                 Projects
